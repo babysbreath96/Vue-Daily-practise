@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>{{msg}}</div>
+        <div>
+            <input type="text" v-bind:value="msg" v-on:input="fn" />
+        </div>
+        <div>
+            <input type="text" v-bind:value="msg" v-on:input="msg=$event.target.value" />
+        </div>
+        <div>
+            <input type="text" v-model="msg" />
+        </div>
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script>
+        //.TODO:  双向数据绑定的本质 : 使用属性绑定和事件绑定
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                msg: "哈哈哈",
+            },
+            methods: {
+                fn: function(event) {
+                    // 使用输入域中的最新数据 覆盖原来的数据
+                    this.msg = event.target.value;
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>

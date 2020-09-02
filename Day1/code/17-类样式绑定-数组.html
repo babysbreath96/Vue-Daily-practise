@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+        .section {
+            width: 200px;
+            height: 200px;
+            background-color: #f00;
+        }
+        
+        .active {
+            font-size: 40px;
+        }
+        
+        .color {
+            color: greenyellow;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 使用数组方式表示[k] K 不加引号就是变量 'K'表示的是类名 -->
+
+        <div :class="['section','active','color']">我是类名 和data没关系</div>
+
+        <div :class="[section,active,abc]">哈哈哈哈</div>
+        <button @click="abc=''">按钮</button>
+        <hr />
+        <!-- 1 ， 对象绑定和数组绑定可以结合使用 -->
+        <p :class="[{active:true},'color']">heheheeheh</p>
+        <p :class="[obj,abc]">ooooo哦哦哦哦哦</p>
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script>
+        // 1.TODO:  属性绑定类名中 {k:v} K表示类名 v一般是布尔值
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                section: 'section',
+                active: 'active',
+                abc: 'color',
+                obj: {
+                    active: true,
+                },
+            },
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>

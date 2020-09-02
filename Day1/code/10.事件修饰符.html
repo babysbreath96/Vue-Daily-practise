@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+        #app div:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div @click="divHandler">
+            <!-- 阻止冒泡 -->
+            <button @click.stop="btnHandler">按钮</button>
+        </div>
+        <div>
+            <!-- 阻止默认行为 -->
+            <!-- .once  只解析一次 -->
+            <a href="http://www.baidu.com" @click.prevent.once="aHandler">百度一下</a>
+        </div>
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script>
+        // 事件修饰符支持链式编程
+        var vm = new Vue({
+            el: "#app",
+            data: {},
+            methods: {
+                divHandler() {
+                    console.log('触发了div');
+                },
+                btnHandler() {
+                    console.log('触发了btn');
+                },
+                aHandler() {
+                    console.log('触发了a');
+                }
+            },
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- v-on :事件类型 = "业务逻辑 || 函数名" -->
+        <button v-on:click="handle">按钮</button>
+        <button @:click="msg=456">按钮2</button>{{msg}}
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script>
+        // v-on:    @:
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                msg: '123'
+            },
+            methods: {
+                // handle: function() {
+                //     alert("12344");
+                // },
+                handle() {
+                    alert('123455');
+                }
+            },
+        });
+    </script>
+</body>
+
+</html>

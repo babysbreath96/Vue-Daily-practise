@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 输入框的值和p标签内容的值是同步变化的 -->
+    <input type="text" name="" id="inp" />
+    <p></p>
+    <script>
+        // /* 思路 ；
+        // 1 , 获取dom对象
+        // 2 , j监听输入框的input事件
+        // 3 , 将监听到的input事件中的最新value值赋值给p */
+        //1.TODO: input 事件 只能实现 视图驱动数据 数据无法驱动视图
+        // const inp = document.querySelector('#inp')
+        // inp.oninput = function(e) {
+        //     p.innerHTML = e.target.value
+        // }
+
+        //  Object.defineProperty(对象,对象的属性,配置对象)
+        // 在配置对象中有两个函数需要关注  get  set   在获取对象中的值的时候,会触发get函数,如果在设置对象属性值的时候会触发set函数
+        const ipt = document.querySelector('input');
+        const p = document.querySelector('p');
+        var obj = {
+            a: 10,
+        };
+        Object.defineProperty(obj, 'a', {
+            get() {
+                // return a
+            },
+            // set函数触发之后会接收到一个新值
+            set(newval) {
+                //   console.log(newval);
+                //   console.log(ipt.value);
+                a = newval;
+                ipt.value = a;
+                p.innerHTML = a;
+            },
+        });
+        obj.a = 100;
+        ipt.oninput = function(e) {
+            obj.a = e.target.value;
+        };
+    </script>
+</body>
+
+</html>

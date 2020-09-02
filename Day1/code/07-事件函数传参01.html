@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- v-on :事件类型 = "业务逻辑 || 函数名" -->
+        <div>{{num}}</div>
+        <button v-on:click="handle3(1,2)">按钮3</button>
+
+        <!-- 如果事件直接绑定函数名称，那么默认会传递事件对象作为事件函数的第一个参数 -->
+        <button v-on:click="handle4">按钮4+100</button>
+
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                num: 10
+            },
+            methods: {
+
+                handle3(a, b) {
+                    console.log(a, b);
+                    this.num += a;
+                },
+                handle4(event) {
+                    console.log(event.target.innerHTML);
+                    var str = event.target.innerHTML;
+                    // 拿到按钮中的100
+                    console.log(str.substring(event.target.innerHTML.indexOf('+') + 1));
+                    // this.num += (str.substring(event.target.innerHTML.indexOf('+') + 1) - 0);
+                    this.num += +str.substring(event.target.innerHTML.indexOf('+') + 1);
+                }
+            },
+        });
+    </script>
+</body>
+
+</html>

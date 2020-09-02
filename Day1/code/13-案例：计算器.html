@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="num1" />
+        <select v-model="sep">
+        <option value="+"></option>
+        <option value="-"></option>
+        <option value="*"></option>
+        <option value="/"></option>
+      </select>
+        <input type="text" v-model="num2" @keyup.enter="calc" />
+        <button @click="calc">计算</button>
+        <h5>计算结果是:{{result}}</h5>
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script>
+        //.TODO: 思路 ； 
+        /* 
+         1 , 两个输入框 ，值是用户输入的，将用户输入值拿到----双向绑定
+         2 , 运算符 也是用户选择的 ----双向绑定
+         3 , 计算结果
+             3.1 为计算结果绑定点击事件
+             3.2 在事件中根据运算符的不同，进行不同的加减乘除操作 
+         */
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                num1: '',
+                num2: '',
+                sep: '+',
+                result: ''
+            },
+            methods: {
+                // 定义计算的方法
+                calc() {
+                    if (this.sep == '+') this.result = parseFloat(this.num1) + parseFloat(this.num2);
+                    else if (this.sep == '-') this.result = this.num1 - this.num2;
+                    else if (this.sep == '*') this.result = this.num1 * this.num2;
+                    else this.result = this.num1 / this.num2;
+
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>

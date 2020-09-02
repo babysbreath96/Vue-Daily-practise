@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- v-on :事件类型 = "业务逻辑 || 函数名" -->
+
+
+        <div>{{num}}</div>
+
+        <!-- 函数在调用的时候，如果不涉及参数传递时 加不加括号都一样 -->
+        <button v-on:click="handle1">按钮</button>
+        <button v-on:click="handle2()">按钮2</button>
+
+
+        <button v-on:click="handle3(1,2)">按钮3</button>
+
+
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script>
+        //1 .TODO: 事件函数的调用方式
+        //a.FIXME: 直接绑定函数名称  ：@click='fn'
+        //b.FIXME: 调用函数  ：@click='fn()'
+
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                num: 10
+            },
+            methods: {
+                // handle: function() {
+                //     alert("12344");
+                // },
+                handle1() {
+                    //.FIXME:  方法中需要访问到data中的数据 使用this.数据名
+                    this.num += 10;
+                    //方法中的this指向的是new出来的vue实例
+                    console.log(this == vm);
+                },
+                handle2() {
+                    this.num += 10;
+                },
+                handle3(a, b) {
+                    console.log(a, b);
+                    this.num += a;
+                },
+
+            },
+        });
+    </script>
+</body>
+
+</html>

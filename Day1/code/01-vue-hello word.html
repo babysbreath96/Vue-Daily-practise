@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!--3 插值表达式 渲染数据 -->
+        <div>
+            {{msg}}
+
+        </div>
+        <div v-cloak>
+            {{abc}}
+        </div>
+    </div>
+    <!-- 1 引入 -->
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script>
+        //   2 new vue  实例
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                msg: '哈哈哈呵呵呵',
+                abc: 'heheheheh'
+            },
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>

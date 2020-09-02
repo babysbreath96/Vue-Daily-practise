@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+        .section {
+            width: 200px;
+            height: 200px;
+            background-color: #f00;
+        }
+        
+        .active {
+            font-size: 40px;
+        }
+        
+        .color {
+            color: greenyellow;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 属性绑定类样式 和 css 类样式不存在冲突 -->
+        <div class="color" :class="{section:isSection,active:true}">文字</div>
+        <div :class="obj">文字2</div>
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script>
+        // 1.TODO:  属性绑定类名中 {k:v} K表示类名 v一般是布尔值
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                // section:'section',
+                isSection: true,
+                //2.TODO: 对象抽离
+                obj: {
+                    section: true,
+                    active: true,
+                    color: false,
+                },
+            },
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>

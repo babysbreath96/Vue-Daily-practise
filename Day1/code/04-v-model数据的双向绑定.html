@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+    <head>
+        <meta charset="UTF-8">
+            <meta name="viewport"  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no">
+                <meta http-equiv="X-UA-Compatible"  content="ie=edge">
+                    <title>Document</title>
+    </head>
+
+    <body>
+        <div id='app'>
+            <input type="text" v-model="msg">
+            <div>{{msg}}</div>
+            <!-- 两个单选按钮都双向绑定给data中的ischeck  ,
+            不论哪个单选按钮被选中，被选中的单选按钮的value都会同步给ischeck -->
+            <input type="radio" value='1' v-model="ischeck">男
+            <input type="radio" value='2' v-model="ischeck">女
+        </div>
+        <script src='../node_modules/vue/dist/vue.js'></script>
+        <script>
+            //.TODO: 双向绑定，数据驱动视图，视图也可以驱动数据
+
+            /*             ### mvvm
+
+            - MVC 是后端的分层开发概念； MVVM是前端视图层的概念，主要关注于 视图层分离，也就是说：MVVM把前端的视图层，分为了 三部分 Model, View , VM ViewModel
+            -1， m   model  
+              - 数据层   Vue  中 数据层 都放在 data 里面
+            ,2， v   view     视图   
+              - Vue  中  view      即 我们的HTML页面  
+            ,3， vm   （view-model）     控制器     将数据和视图层建立联系      
+              - vm 即  Vue 的实例  就是 vm   */
+            var vm = new Vue({
+                el: '#app',
+                data: {
+                    msg: '12234',
+                    ischeck: '1'
+                },
+                methods: {
+
+                }
+            });
+        </script>
+    </body>
+
+    </html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+    <head>
+        <meta charset="UTF-8">
+            <meta name="viewport"  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no">
+                <meta http-equiv="X-UA-Compatible"  content="ie=edge">
+                    <title>Document</title>
+    </head>
+
+    <body>
+        <div id='app'>
+            <div>{{msg}}</div>
+            <div v-text="msg"></div>
+            <!-- v-html v-text 本质的差别 是否会解析html标签 -->
+
+            <div v-text="msg2"></div>
+            <div v-html="msg2"></div>
+
+            <!-- v-pre 保留预格式 包括原始的{{}} 插值表达式 -->
+            <div v-pre>
+                {{msg}}
+            </div>
+            <pre>
+                hahahaha
+                            hehehe 
+                                 oooo
+            </pre>
+        </div>
+        <script src='../node_modules/vue/dist/vue.js'></script>
+        <script>
+            var vm = new Vue({
+                el: '#app',
+                data: {
+                    msg: 'hahahahahah',
+                    msg2: '<h1>hahahaha</h1>'
+                },
+                methods: {
+
+                }
+            });
+        </script>
+    </body>
+
+    </html>

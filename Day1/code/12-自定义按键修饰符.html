@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="box">
+        <!-- <input type="text" v-on:keyup="handle" v-model="info" /> -->
+        <!-- <input type="text" v-on:keyup.32="handle" v-model="info" /> -->
+        <input type="text" v-on:keyup.Space="handle" v-model="info" />
+        <input type="text" v-on:keyup.wcg="alt" />
+    </div>
+
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script>
+        //1.TODO: 全局 config.keyCodes对象
+        // 空格 32 
+        //2.TODO: 规则 ： 自定义按键修饰符名字是自定义的。但是对应的值必须的按键对应的event.keyCode值
+        // Vue.config.keyCodes.别名 = 键位码
+        Vue.config.keyCodes.Space = 32;
+        Vue.config.keyCodes.wcg = 18;
+        var vm = new Vue({
+            el: "#box",
+            data: {
+                info: "",
+            },
+            methods: {
+                handle: function(event) {
+                    console.log(event.keyCode);
+                },
+                alt() {
+                    console.log('按下了alt键');
+                }
+            },
+        });
+    </script>
+
+
+
+</body>
+
+</html>
