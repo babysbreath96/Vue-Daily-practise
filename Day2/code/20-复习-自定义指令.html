@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-focus />
+        <input type="text" v-color="obj" />
+        <input type="text" v-color="obj" />
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        // 全局自定义指令： 定义在vue实例之前
+        Vue.directive('focus', {
+            inserted(el) {
+                // el  表示的是 当前使用该指令的dom元素
+                console.log(el);
+                el.focus();
+            },
+        });
+
+        //传参
+        Vue.directive('color', {
+            bind(el, binding) {
+                // el  表示的是 当前使用该指令的dom元素
+                console.log(el, binding);
+                el.style.color = binding.value.color;
+                el.style.backgroundColor = binding.value.bgcolor;
+            },
+        });
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                obj: {
+                    color: 'red',
+                    bgcolor: 'green',
+                },
+            },
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>

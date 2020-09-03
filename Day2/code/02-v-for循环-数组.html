@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>水果列表</div>
+        <ul>
+            <!-- 自定义，但要一一对应
+                    item :每一项数据
+                    in : 关键字
+                    fruits : 数据列表
+                    index ； 索引
+             -->
+            <li v-for="item in fruits">{{item}}</li>
+            <li v-for="(item,index) in fruits">{{item}} + '----'+{{index}}</li>
+            <hr />
+            <hr />
+            <!-- key 值唯一 index同样也是唯一值 -->
+            <li :key="index" v-for="(itm,i) in fruits">{{itm}} + '----'+{{i}}</li>
+            <hr />
+            <hr />
+            <li v-for="item in start">
+                <span>{{item.name}}</span>
+                <span>{{item.age}}</span>
+                <span>{{item.gender}}</span>
+            </li>
+        </ul>
+        <!-- 遍历数字 -->
+        <ol>
+            <li v-for="item in 10">{{item}}</li>
+        </ol>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        //1.TODO:  v-for 遍历数组 :key
+        //2.TODO:  :key="item.id"  v-bind:简写形式
+        // key的作用 ：帮助Vue区分不同的元素，从而提高性能,key 的值是唯一的
+        //原则上只要遍历数据就加key   对开发没有影响 ，只帮助vue区分元素
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                fruits: ['apple', 'orange', 'banana'],
+                start: [{
+                    id: 1,
+                    name: 'yoona',
+                    age: '18',
+                    gender: 'male',
+                }, {
+                    id: 2,
+                    name: 'jisoo',
+                    age: '17',
+                    gender: 'male',
+                }, {
+                    id: 3,
+                    name: 'ui',
+                    age: '17',
+                    gender: 'male',
+                }, ],
+            },
+        });
+    </script>
+</body>
+
+</html>

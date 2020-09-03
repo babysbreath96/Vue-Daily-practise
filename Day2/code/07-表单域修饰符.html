@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- v-model指令是内部配合input事件操作的
+      .lazy 修饰符可将input事件修改成change事件，失去焦点时更新 -->
+        <input type="text" v-model.lazy="msg" />{{msg}}
+        <hr />
+        <!-- 输入框的value值默认是String类型，。.number修饰符可将输入框的数字字符串转为number类型 -->
+        <input type="text" v-model.number="number" />{{number +10}}
+        <hr />
+        <!-- trim 去除两端空格, -->
+        <input type="text" v-model.trim="str" />{{str.length}}
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: '123',
+                number: 10,
+                str: '',
+            },
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>

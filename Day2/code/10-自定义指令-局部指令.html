@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" value="123" v-color="obj" v-focus />
+    </div>
+    <div id="app2">
+        <input type="text" value="123" v-color="obj" v-focus />
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        // Vue.directive('color', {
+        //     bind(el, binding) {
+        //         console.log(binding);
+        //         console.log(binding.value.color);
+        //         console.log(binding.value.bgcolor);
+        //         el.style.color = binding.value.color;
+        //         el.style.background = binding.value.bgcolor;
+        //     },
+        // });
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                obj: {
+                    color: 'red',
+                    bgcolor: 'green',
+                },
+            },
+            methods: {},
+            //1.TODO: 局部指令配置节点
+            directives: {
+                // 指令名:配置对象
+                focus: {
+                    inserted(el) {
+                        el.focus();
+                    },
+                },
+            },
+        });
+        var vm = new Vue({
+            el: '#app2',
+            data: {
+                obj: {
+                    color: 'red',
+                    bgcolor: 'green',
+                },
+            },
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>

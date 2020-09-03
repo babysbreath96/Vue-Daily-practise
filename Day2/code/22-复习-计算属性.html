@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style></style>
+</head>
+
+<body>
+    <div id="app">
+        <h3>计算属性</h3>
+        <div>{{reverse}}</div>
+        <div>{{reverse}}</div>
+        <div>{{reverse}}</div>
+        <div>{{reverse}}</div>
+        <hr />
+        <hr />
+        <hr />
+        <h3>方法</h3>
+        <div>{{reverse1()}}</div>
+        <div>{{reverse1()}}</div>
+        <div>{{reverse1()}}</div>
+        <div>{{reverse1()}}</div>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                str: 'abcdefg',
+            },
+            methods: {
+                reverse1() {
+                    console.log('执行了方法');
+                    return this.str.split('').reverse().join('');
+                },
+            },
+            //1.TODO: 计算属性 定义在methods兄弟节点
+            // 计算属性依赖于缓存
+            // 计算属性基于data中的数据进行运行的，只要数据发生改变计算属性重新计算
+            computed: {
+                reverse() {
+                    console.log('执行了计算属性');
+                    return this.str.split('').reverse().join('');
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>

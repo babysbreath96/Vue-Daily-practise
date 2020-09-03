@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <button @click="fn">点击1</button>
+            <button @click="fn()">点击2</button>
+            <button @click="fn2(100,200)">点击3</button>
+        </div>
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: '',
+            },
+            methods: {
+                fn() {
+                    // console.log(this);
+                    // console.log(event.target.innerHTML);
+                },
+                fn2(a, b) {
+                    // console.log(a, b, c);
+                    console.log(event);
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>

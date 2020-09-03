@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>id : <input type="text" v-model="id" /></div>
+        <div>
+            name : <input type="text" v-model="name" />
+            <button @click="add">新增</button>
+        </div>
+        <hr />
+        <hr />
+        <hr />
+        <ul>
+            <!-- vue 中有diff算法，更新较少变动的节点 -->
+            <li v-for="(item,index) in start">
+                <!-- <li v-for="(item,index) in start" :key="item.id"> -->
+                <input type="checkbox" />
+                <span>{{item.name}}</span>
+            </li>
+        </ul>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                id: '',
+                name: '',
+                start: [{
+                    id: 1,
+                    name: 'yoona',
+                    age: '18',
+                    gender: 'male',
+                }, {
+                    id: 2,
+                    name: 'jisoo',
+                    age: '17',
+                    gender: 'male',
+                }, {
+                    id: 3,
+                    name: 'ui',
+                    age: '17',
+                    gender: 'male',
+                }, ],
+            },
+            methods: {
+                add() {
+                    this.start.unshift({
+                        id: this.id,
+                        name: this.name,
+                    });
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>

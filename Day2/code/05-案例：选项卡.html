@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style type="text/css">
+        .tab ul {
+            overflow: hidden;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .tab ul li {
+            box-sizing: border-box;
+            padding: 0;
+            float: left;
+            width: 100px;
+            height: 45px;
+            line-height: 45px;
+            list-style: none;
+            text-align: center;
+            border-top: 1px solid blue;
+            border-right: 1px solid blue;
+            cursor: pointer;
+        }
+        
+        .tab ul li:first-child {
+            border-left: 1px solid blue;
+        }
+        
+        .tab ul li.active {
+            background-color: orange;
+        }
+        
+        .tab div {
+            width: 500px;
+            height: 300px;
+            /* display: none; */
+            text-align: center;
+            font-size: 30px;
+            line-height: 300px;
+            border: 1px solid blue;
+            border-top: 0px;
+        }
+        
+        .tab div.current {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="tab">
+            <ul>
+                <li v-on:click="change(index)" :class="currentIndex==index?'active':''" :key="item.id" v-for="(item,index) in list">
+                    {{item.title}}
+                </li>
+            </ul>
+            <!-- 三元表达式 判断当前索引值是否一致，添加显示，和背景颜色类名 -->
+            <!-- <div :class="currentIndex==index?'current':''" :key="item.id" v-for="(item,index) in list"> -->
+
+            <!-- v-show -->
+            <div v-show="index==currentIndex" :key="item.id" v-for="(item,index) in list">
+                <img :src="item.path" alt="" />
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="./vue.js"></script>
+    <script type="text/javascript">
+        // 声明式编程 : 模板的结构和最终显示的效果基本一致
+
+        // v-show 实现
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                currentIndex: 0, //选项卡当前的索引
+                list: [{
+                    id: 1,
+                    title: 'apple',
+                    path: '../img/apple.png',
+                }, {
+                    id: 2,
+                    title: 'orange',
+                    path: '../img/orange.png',
+                }, {
+                    id: 3,
+                    title: 'lemon',
+                    path: '../img/lemon.png',
+                }, ],
+            },
+            methods: {
+                change: function(index) {
+                    // 定义选项卡切换操作：本质操作类名；通过currentIndex
+                    this.currentIndex = index;
+                },
+            },
+        });
+
+        // var vm = new Vue({
+        //     el: '#app',
+        //     data: {
+        //         currentIndex: 0, // 选项卡当前的索引
+        //         list: [{
+        //             id: 1,
+        //             title: 'apple',
+        //             path: '../img/apple.png'
+        //         }, {
+        //             id: 2,
+        //             title: 'orange',
+        //             path: '../img/orange.png'
+        //         }, {
+        //             id: 3,
+        //             title: 'lemon',
+        //             path: '../img/lemon.png'
+        //         }]
+        //     },
+        //     methods: {
+        //         change: function(index) {
+        //             // 在这里实现选项卡切换操作：本质就是操作类名
+        //             // 如何操作类名？就是通过currentIndex
+        //             this.currentIndex = index;
+        //         }
+        //     }
+        // });
+    </script>
+</body>
+
+</html>

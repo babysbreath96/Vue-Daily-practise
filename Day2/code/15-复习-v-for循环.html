@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 数组 -->
+        <div v-for="item in arr">{{item}}</div>
+        <hr />
+        <hr />
+        <div :key="id" v-for="(item,index) in obj">{{item}}-------{{index}}</div>
+
+        <hr />
+        <hr />
+        <hr />
+        <!-- 对象 -->
+        <div v-for="(v,k,i) in obj1">{{v}}</div>
+        <div v-for="(v,k,i) in obj1">{{k}}</div>
+        <div v-for="(v,k,i) in obj1">{{i}}</div>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                // 数组
+                arr: ['lisa', 'ui', 'yoona', 'jisoo'],
+                obj: [{
+                    id: 1,
+                    name: 'yoona',
+                    age: 18,
+                }, {
+                    id: 2,
+                    name: 'lisa',
+                    age: 18,
+                }, {
+                    id: 3,
+                    name: 'ui',
+                    age: 17,
+                }, {
+                    id: 4,
+                    name: 'jisoo',
+                    age: 16,
+                }, ],
+                // 对象
+                obj1: {
+                    id: 10,
+                    name: 'yoona',
+                    age: 18,
+                },
+            },
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>

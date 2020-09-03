@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>{{bigStr}}</div>
+        <div>{{bigStr}}</div>
+        <hr />
+        <hr />
+        <div>{{ bs()}}</div>
+        <div>{{ bs()}}</div>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                str: 'english',
+            },
+            methods: {
+                //2.TODO: 方法 ：不存在缓存
+                bs() {
+                    console.log('方法');
+                    return this.str.toUpperCase();
+                },
+            },
+            directives: {},
+            //.TODO: 计算属性 ：基于依赖
+            computed: {
+                //1.FIXME:  形式上是一个函数，最终使用的时候当做属性来使用
+                //2.FIXME:  计算属性基于data中的数据进行运行的，只要数据发生改变计算属性重新计算
+                bigStr() {
+                    console.log('计算属性');
+                    return this.str.toUpperCase();
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>

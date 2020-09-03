@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <form action="http://itcast.cn">
+            <div>姓名 : <input type="text" v-model="umane" /></div>
+            <div>
+                <span> 性别 : </span>
+                <input type="radio" id="male" value="1" v-model="gender" />
+                <label for="male">男</label>
+                <input type="radio" id="female" value="2" v-model="gender" />
+                <label for="female">女</label>
+            </div>
+            <!-- 复选框 单选 -->
+            <div>
+                <input type="checkbox" name="" id="" v-model="check1" /> {{check1}}
+            </div>
+            <div>
+                <!-- 复选框 多选 -->
+                <span>爱好 : </span>
+                <input type="checkbox" id="ball" value="1" v-model="hobby" />
+                <label for="ball">篮球</label>
+                <input type="checkbox" id="sing" value="2" v-model="hobby" />
+                <label for="sing">唱歌</label>
+                <input type="checkbox" id="code" value="3" v-model="hobby" />
+                <label for="code">写代码</label> {{hobby}}
+            </div>
+            <div>
+                <!-- 下拉列表 -->
+                <!-- multiple  复选 ，选中多个绑定数组option 项具体值会存到数组中
+               -->
+                <select v-model="sections" multiple>
+            <option value="0">哈哈</option>
+            <option value="1">呵呵</option>
+            <option value="2">嗯嗯</option>
+            <option value="3">哦哦</option>
+          </select> {{sections}}
+            </div>
+            <!-- 文本域
+             -->
+            <div style="margin-top: 50px">
+                <span>个人简介：</span>
+                <textarea v-model="desc"></textarea>
+            </div>
+            <div>
+                <input type="submit" value="提交" v-on:click.prevent="handle" />
+            </div>
+        </form>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        //1.TODO: 基于Vue的表单操作
+        // /*
+        // a : input     单行文本
+        // b : textare   多行文本   不可以直接添加文本，必须使用vue 模板语法
+        // c : select    下拉多选 一个值单选, 多选使用数组形式，并在标签中添加multiple 属性，值为true
+        // d : checkbox  多选框  (数组形式，输入value 值勾选对应数据)，绑定数组
+        // e : radio     单选框 通过value值控制选择项 绑定布尔值
+        // f : submit    提交    阻止默认行为 .prevent
+        // */
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                uname: 'Yoona',
+                gender: 1,
+                hobby: [2, 3],
+                check1: false,
+                sections: ['1', '2'],
+                desc: '呵呵呵额',
+            },
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>

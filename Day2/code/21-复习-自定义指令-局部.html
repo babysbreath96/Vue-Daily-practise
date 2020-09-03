@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-focus />
+    </div>
+    <div id="app2">
+        <input type="text" v-focus />
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        //.TODO: 局部指定指令 只能应用在当前vue实例组件内
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+            directives: {
+                focus: {
+                    inserted(el) {
+                        el.focus();
+                    },
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>

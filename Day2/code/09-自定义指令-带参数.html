@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" value="123" v-color="obj" />
+        <input type="text" value="123" v-color="obj" />
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        Vue.directive('color', {
+            bind(el, binding) {
+                console.log(binding);
+                console.log(binding.value.color);
+                console.log(binding.value.bgcolor);
+                el.style.color = binding.value.color;
+                el.style.background = binding.value.bgcolor;
+            },
+        });
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                obj: {
+                    color: 'red',
+                    bgcolor: 'green',
+                },
+            },
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>

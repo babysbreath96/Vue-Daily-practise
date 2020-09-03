@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div v-if="score>=90">优秀</div>
+        <div v-else-if="score<90&&score>=80">良好</div>
+        <div v-else-if="score<80&&scpre>60">一般</div>
+        <div v-else>垃圾</div>
+
+        <hr />
+        <hr />
+        <hr />
+        <hr />
+        <div v-show="score>=90">优秀</div>
+        <div v-show="score<90&&score>=80">良好</div>
+        <div v-show="score<80&&scpre>60">一般</div>
+        <div v-show="score<60">垃圾</div>
+        <div v-show="flag">测试v-show</div>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        //1.TODO: 分支结构
+        // v-show 原理： 控制元素样式是否显示 display:none
+
+        /*   v-show 有较高的初始渲染消耗
+          v-if有较高的频繁切换消耗 */
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                score: 10,
+                flag: false,
+            },
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>
