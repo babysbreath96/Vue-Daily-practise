@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>日期是 ： {{timer | deteformat}}</div>
+        <div>日期是 ： {{timer | deteformat |str }}</div>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        // 1.TODO: 定义过滤器 filter("自定义过滤器名"，function(形参，接收要过滤的数据))
+        Vue.filter('deteformat', function(val) {
+            const date = new Date(val);
+            const year = date.getFullYear();
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            const h = date.getHours();
+            const m = date.getMinutes();
+            const s = date.getSeconds();
+            return `${year}-${month}-${day} ${h}:${m}:${s}`;
+        });
+
+        Vue.filter('str', function(val) {
+            return '今天是' + val;
+        });
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                timer: 1599308632849,
+            },
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>

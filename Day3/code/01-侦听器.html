@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <span>名：</span>
+            <span>
+          <input type="text" v-model="firstName" />
+        </span>
+        </div>
+        <div>
+            <span>姓：</span>
+            <span>
+          <input type="text" v-model="lastName" />
+        </span>
+        </div>
+        <div>{{fullName}}</div>
+    </div>
+    <script type="text/javascript" src=".vue.js"></script>
+    <script type="text/javascript">
+        //1.TODO: 侦听器
+        // 应用场景 ： 数据变化时执行异步或开销较大的操作
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                firstName: 'Jim',
+                lastName: 'Green',
+                // fullName: 'Jim Green'
+            },
+            computed: {
+                fullName: function() {
+                    return this.firstName + ' ' + this.lastName;
+                },
+            },
+            //.TODO: 函数名 必须是data 中定义的数据 属性名
+            // watch: {
+            //     firstName: function(val) {// 形参中 有两个 第一个是新值 第二个是旧值 一般不写
+            //         this.fullName = val + ' ' + this.lastName;
+            //     },
+            //     lastName: function(val) {
+            //         this.fullName = this.firstName + ' ' + val;
+            //     }
+            // }
+        });
+    </script>
+</body>
+
+</html>

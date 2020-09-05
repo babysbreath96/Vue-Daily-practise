@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="num1" v-focus />
+        <span>+</span>
+        <input type="text" v-model="num2" @keyup="sum" />
+        <button @click="sum">计算</button>
+        <h4>计算结果是: {{sum()}}</h4>
+        <h4>计算结果是: {{sum()}}</h4>
+        <hr />
+        <hr />
+        <h3>计算结果是: {{sum1}}</h3>
+        <h3>计算结果是: {{sum1}}</h3>
+        <hr />
+        <hr />
+        <h2>计算结果是: {{getsum}}</h2>
+        <h2>计算结果是: {{getsum}}</h2>
+        <h2>计算结果是: {{getsum}}</h2>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        // 自定义指令 表单自动获得焦点
+
+        Vue.directive('focus', {
+            inserted(el) {
+                el.focus();
+            },
+        });
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                num1: '',
+                num2: '',
+                getsum: '',
+            },
+            //1.TODO: computed 和 methods
+            //a.FIXME:  共同点 : computed能实现的methods也能实现
+            //b.FIXME:  不同点 : computed是基于依赖进行缓存的。computed只有在它的相关依赖发生变化才会重新计算求值。
+            // 而只要它的相关依赖没有发生变化，多次访问会立即返回之前的计算结果，而不必再次计算。
+            // 相比之下，每当触发重新渲染时，调用方法总会再次执行函数。也就是说当我们不希望有缓存，用方法来代替
+            methods: {
+                // 定义求和方法
+                sum() {
+                    return parseInt(this.num1) + parseInt(this.num2);
+                },
+            },
+            computed: {
+                // 定义求和的 计算属性
+                sum1() {
+                    return parseInt(this.num1) + parseInt(this.num2);
+                },
+            },
+            //2.TODO: watch 和 computed
+            //a.FIXME: 共同点 : 都是以Vue的依赖追踪机制为基础的，都是希望在依赖数据发生改变的时候，
+            // 被依赖的数据根据预先定义好的函数，发生 "自动"的变化
+            //b.FIXME: 不同点 ：watch擅长处理的场景：一个数据影响多个数据；computed擅长处理的场景：一个数据受多个数据影响。
+            // 虽然计算属性在大多数情况下更合适，但有时也需要一个自定义的侦听器，当需要在数据发生变化时执行异步或者开销较大的操作时，通过侦听器最合适
+            watch: {
+                // 定义求和的侦听器
+                num1(val) {
+                    this.getsum = +val + +this.num2;
+                },
+                num2(val) {
+                    this.getsum = +this.num1 + +val;
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>

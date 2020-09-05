@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="item in arr">{{item}}</li>
+        </ul>
+        {{msg}}
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                arr: [{
+                    id: 1,
+                    name: 'orange',
+                }, {
+                    id: 2,
+                    name: 'grape',
+                }, {
+                    id: 3,
+                    name: 'pear',
+                }, ],
+                msg: '123',
+            },
+            methods: {},
+        });
+        // vm.arr[0] = {
+        //     name: 'water'
+        // }; // 此种方式修改数组元素不是响应式的
+        vm.$set(vm.arr, 0, 'water'); // 这种是响应式的
+    </script>
+</body>
+
+</html>

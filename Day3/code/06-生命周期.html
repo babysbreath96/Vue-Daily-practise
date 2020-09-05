@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>{{msg}}</div>
+        <button @click="update">更新</button>
+        <button @click="destroy">销毁</button>
+    </div>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <script type="text/javascript">
+        //.TODO:  Vue实例的生命周期
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: '生命周期',
+            },
+            methods: {
+                update: function() {
+                    this.msg = 'hello';
+                },
+                destroy: function() {
+                    this.$destroy();
+                },
+            },
+            // 创建vue 实例的时候，有一些生命周期函数(钩子函数)
+            //1.TODO: 这是第一个钩子函数，实例创建前，在这个钩子函数中，
+            // data中的数据和methods中的方法还未被初始化完毕，不可以访问到data中的数据，methods方法的
+            //1.FIXME:  挂载 (初始化相关属性)
+            beforeCreate: function() {
+                console.log('beforeCreate');
+            },
+            //2.TODO: 第二个钩子函数，创建后，这个钩子访问的时候，data中的数据和methods中的方法，已经被初始化完毕，
+            // 最早访问data中的数据和methods中的方法，需要在created中访问
+            created: function() {
+                console.log('created');
+            },
+            //3.TODO: 挂载前主要关注的是dom树 ，beforeMount 说明页面中插值表达式的数据还未被真正的替换
+            beforeMount: function() {
+                console.log('beforeMount');
+            },
+            //4.TODO: mounted 挂载后 说明data中的数据已经被替换到了页面视图中
+            mounted: function() {
+                console.log('mounted');
+            },
+            //5.TODO: 更新前 这个钩子函数执行的时候，已经将data中的数据做了更新，但是视图中的数据还没有更新
+            //2.FIXME:  更新 (元素或者组件的变更操作)
+            beforeUpdate: function() {
+                console.log('beforeUpdate');
+            },
+            //6.TODO: 更新后 这个钩子函数执行的时候data中的数据和视图已经完全更新完毕
+            updated: function() {
+                console.log('updated');
+            },
+            //7.TODO: 销毁前 实例销毁前data中的数据，方法可以正常访问的
+            //3.FIXME:  销毁 (销毁相关属性)
+            beforeDestroy: function() {
+                console.log('beforeDestroy');
+            },
+            //8.TODO: 销毁后 实例不存在
+            destroyed: function() {
+                console.log('destroyed');
+            },
+        });
+    </script>
+</body>
+
+</html>

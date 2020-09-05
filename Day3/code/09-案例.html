@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style type="text/css">
+        .grid {
+            margin: auto;
+            width: 530px;
+            text-align: center;
+        }
+        
+        .grid table {
+            border-top: 1px solid #c2d89a;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .grid th,
+        td {
+            padding: 10;
+            border: 1px dashed #f3dcab;
+            height: 35px;
+            line-height: 35px;
+        }
+        
+        .grid th {
+            background-color: #f3dcab;
+        }
+        
+        .grid .book {
+            padding-bottom: 10px;
+            padding-top: 5px;
+            background-color: #f3dcab;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="grid">
+            <div>
+                <h1>图书管理</h1>
+                <div class="book">
+                    <div>
+                        <label for="id">编号：</label>
+                        <input type="text" id="id" v-model="id" />
+                        <label for="name">名称： </label>
+                        <input type="text" id="name" autocomplete="off" v-model="name" v-focus />
+                        <button @click="handle" :disabled="isSubmit">提交</button>
+                    </div>
+                </div>
+            </div>
+            <div class="total">
+                <span>图书总数：</span>
+                <span>{{books.length}}</span> 计算属性 ：{{count}}
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>名称</th>
+                        <th>时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="item in books" :key="item.id">
+                        <td>{{item.id}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.date | deteformat('yyyy-MM-DD hh:mm:ss') }}</td>
+                        <td>
+                            <a href="" @click.prevent="toEdit(item.id)">修改</a>
+                            <span>|</span>
+                            <a href="" @click.prevent="delbook(item.id)">删除</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        //6.TODO: 自定义指令 获取焦点
+        Vue.directive('focus', {
+            inserted(el) {
+                el.focus();
+            },
+        });
+
+        //4.TODO: 时间过滤器
+        Vue.filter('deteformat', function(val, param) {
+            摸摸头;
+            const date = new Date(val);
+            const year = date.getFullYear();
+            const month = date.getMonth();
+            const day = date.getDate();
+            // return `${year}- ${month}- ${day} `;
+            const h = date.getHours();
+            const m = date.getMinutes();
+            const s = date.getSeconds();
+            if (param == 'yyyy') {
+                return `${year} `;
+            } else if (param == 'yyyy-MM-DD') {
+                return `${year}- ${month}- ${day} `;
+            } else if (param == 'yyyy-MM-DD hh:mm:ss') {
+                return `${year}- ${month}- ${day} ${h}:${m}:${s} `;
+            }
+        });
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                id: '',
+                name: '',
+                //3.TODO:  设置添加或编辑开关
+                isEdit: false,
+                isSubmit: false,
+                books: [],
+            },
+            methods: {
+                //添加图书
+                handle: function() {
+                    if (!this.name) return alert('请输入图书名');
+                    if (this.isEdit == false) {
+                        this.books.push({
+                            // id: this.id,
+                            // id: this.books.length + 1,
+                            id: this.books.length ?
+                                this.books[this.books.length - 1].id + 1 :
+                                1,
+                            name: this.name,
+                            date: +new Date(),
+                        });
+                    } else {
+                        // 修改的业务逻辑 id  ,name
+                        // 当我们点击修改按钮之后 data中的id,name已经赋值了
+                        console.log(this.id);
+                        console.log(this.name);
+                        this.books.some((item) => {
+                            if (item.id == this.id) {
+                                item.name = this.name;
+                                //性能优化 ，
+                                return true;
+                            }
+                        });
+
+                        // const res = this.books.filter((item) => {
+                        //     return item.id == this.id;
+                        // });
+                        // item.name = res[0].name;
+                        // 修改结束 关闭开关
+                        this.isEdit = false;
+                    }
+                    // 清空表单
+                    this.id = this.name = '';
+                },
+                //删除图书的方法
+                delbook: function(id) {
+                    // alert(id);
+                    // 将删除图书的id接收  数组的截取 或者数组的过滤
+                    // //1.TODO: 数组截取
+                    // //拿着id找到对应删除元素的索引，findIndex返回要找的数组元素的索引值
+                    // const index = this.books.findIndex((item) => item.id == id);
+                    // //调用截取数组的方法
+                    // this.books.splice(index, 1);
+
+                    //2.TODO: 数组过滤
+                    this.books = this.books.filter((item) => item.id != id);
+                },
+                //修改图书
+                toEdit(id) {
+                    //点击修改
+                    this.isEdit = true;
+
+                    // 接收用户传递的id 将数组中对应的id元素渲染到页面
+
+                    //方法一 ；findIndex对应获取索引
+                    // const i = this.books.findIndex((item) => id == item.id);
+                    // console.log(i);
+                    // this.id = this.books[i].id;
+                    // this.name = this.books[i].name;
+                    // 方法二：
+                    const res = this.books.filter((item) => item.id == id);
+                    console.log(res);
+                    this.id = res[0].id;
+                    this.name = res[0].name;
+                },
+            },
+            //5.TODO: 计算属性 设置总图书数
+            computed: {
+                count() {
+                    return this.books.length;
+                },
+            },
+            //7.TODO: 钩子函数 created
+            created() {
+                // 发送请求 获取数组数据
+                const data = [{
+                    id: 1,
+                    name: '三国演义',
+                    date: 1599288690549,
+                }, {
+                    id: 2,
+                    name: '水浒传',
+                    date: 1599288690549,
+                }, {
+                    id: 3,
+                    name: '红楼梦',
+                    date: 1599288690549,
+                }, {
+                    id: 4,
+                    name: '西游记',
+                    date: 1599288690549,
+                }, ];
+                this.books = data;
+            },
+            //8.TODO: 侦听器
+            watch: {
+                // 如果用户拿到的name值和数据的name值一致禁用
+                name(value) {
+                    // some 的返回值是布尔值
+                    this.isSubmit = this.books.some((item) => (item.name = value));
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>

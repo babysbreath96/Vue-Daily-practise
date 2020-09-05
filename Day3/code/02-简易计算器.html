@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="num1" />
+
+        <input type="text" v-model="num2" @keyup.enter="calc" />
+        <button @click="calc">计算</button>
+        <h5>计算结果是:{{calc()}}</h5>
+        <h5>计算结果是:{{calc()}}</h5>
+        <h5>计算结果是:{{calc()}}</h5>
+        <h5>计算结果是:{{sum}}</h5>
+        <h5>计算结果是:{{sum}}</h5>
+        <h5>计算结果是:{{sum}}</h5>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        //1.TODO: 方法 和 计算属性的区别 : 计算属性与方法的区别:计算属性是基于依赖进行缓存的，而方法不缓存
+        // 提升性能
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                num1: '1',
+                num2: '10',
+                getsum: 11,
+            },
+            methods: {
+                // 定义计算的方法
+                calc() {
+                    console.log('方法被执行了');
+                    return parseFloat(this.num1) + parseFloat(this.num2);
+                },
+            },
+            computed: {
+                sum() {
+                    console.log('计算属性被执行了');
+                    return parseFloat(this.num1) + parseFloat(this.num2);
+                },
+            },
+            watch: {
+                num1(newV) {
+                    console.log('侦听器');
+                    this.getsum = +newV + this.num2;
+                },
+                num2(newV) {
+                    this.getsum = +this.num1 + +newV;
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>
