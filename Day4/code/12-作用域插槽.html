@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+        .current {
+            font-size: 40px;
+            color: aquamarine;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <com-a :list="list">
+            <template v-slot="slotProps">
+          <!-- {{slotProps.info.name}} -->
+
+          <div v-if="slotProps.info.id==1" :class='["current"]'>
+            {{slotProps.info.name}}
+          </div>
+          <div v-else>{{slotProps.info.name}}</div>
+        </template>
+        </com-a>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        Vue.component('com-a', {
+            props: ['list'],
+            data() {
+                return {};
+            },
+            template: `
+          <div>
+          <ul>
+            <li :key="item.id" v-for="item in list" >
+              <slot :info="item">
+              </slot>
+            </li>
+          </ul>
+          </div>
+          `,
+        });
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                current: true,
+
+                list: [{
+                    id: 1,
+                    name: 'yoona',
+                    age: 18,
+                }, {
+                    id: 2,
+                    name: 'ul',
+                    age: 17,
+                }, {
+                    id: 3,
+                    name: 'jisoo',
+                    age: 17,
+                }, ],
+            },
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>

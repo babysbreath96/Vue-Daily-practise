@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script src="./vue.js"></script>
+    <script>
+        //1.TODO: 创建事件中心
+        var hub = new Vue();
+
+        //2.TODO: 创建兄弟组件1
+        Vue.component('da-wa', {
+            data() {
+                return {
+                    num: 0,
+                };
+            },
+            template: `
+        <div>
+          <div></div>
+          <button></button>
+        </div>
+        `,
+            methods: {},
+            mounted() {},
+        });
+
+        //2.TODO: 创建兄弟组件2
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>

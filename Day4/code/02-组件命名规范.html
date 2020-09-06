@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 在html中的组件名必须是短横线连接 -->
+        <my-component></my-component>
+        <my-component-name></my-component-name>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        //1.TODO: 组件命名可以是短横线连接
+        Vue.component('my-component', {
+            //3.TODO: 组件间可以嵌套，，模板字符串中，使用组件可以使用驼峰也可以使用短横线
+            template: `
+          <h2>
+                我是子组件1，<MyComponentName></MyComponentName>
+                <my-component-name></my-component-name>
+
+          </h2>
+        `,
+        });
+        //2.TODO: 组件命名使用驼峰，在组件使用的时候必须使用短横线连接
+        Vue.component('MyComponentName', {
+            template: `
+          <h2>
+                我是子组件2222，
+          </h2>
+        `,
+        });
+
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <prop-type :pmsg="pmsg" pnum="10" :pboo="true" :parr="parr" :pobj="pobj"></prop-type>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        Vue.component('prop-type', {
+            props: ['pmsg', 'pnum', 'pboo', 'parr', 'pobj'],
+            data() {
+                return {
+                    message: this.props[0],
+                };
+            },
+            template: `
+        <ul>
+          <li>{{pmsg +'-----'+ typeof pmsg}}</li>
+          <li> {{pnum +'-----'+ typeof pnum}} </li>
+          <li> {{pboo +'-----'+ typeof pboo}}</li>
+          <li> {{parr +'-----'+ typeof parr}}</li>
+          <li> {{pobj +'-----'+ typeof pobj}}</li>
+        
+        </ul>
+        <sun-on :message="message"></sun-on>
+        
+        `,
+
+            components: {
+                'sun-on': {
+                    props: ['message'],
+                    template: `
+            <span>孙子: {{message}}</span>
+            `,
+                },
+            },
+        });
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                pmsg: '最是人间留不住，朱颜辞镜花辞树',
+                // boolean
+                // pboo: true,
+                // arr
+                parr: [123, 456, '789'],
+                // objwf
+                pobj: {
+                    name: 'Yoona',
+                },
+            },
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>

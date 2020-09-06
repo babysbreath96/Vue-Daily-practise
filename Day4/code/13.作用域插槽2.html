@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+        li {
+            list-style: none;
+        }
+        /* .current {
+            display: none;
+        } */
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <get-even :list="list">
+            <template v-slot="slotp">
+          <div v-if="slotp.info%2==0">{{slotp.info}}</div>
+          <!-- <div v-else class="current">{{slotp.info}}</div> -->
+        </template>
+        </get-even>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        Vue.component('get-even', {
+            props: ['list'],
+            template: `
+       
+      <ul>
+          <li :key="index" v-for="(item,index) in list"> 
+              <slot :info="item"></slot>
+          </li>
+      </ul>
+       
+       `,
+        });
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                list: [1, 2, 3, 4, 15, 60, 38, 9, 93],
+            },
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>

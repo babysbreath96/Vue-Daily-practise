@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <father-son :my-msg="msg"></father-son>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        Vue.component('father-son', {
+            //1.TODO: props 在传递接收值得时候，尽量小写，
+            // 如果非要使用到驼峰命名，在属性绑定传递的时候使用短横线，在propsz中接收要使用驼峰
+            props: ['myMsg'],
+            data() {
+                return {
+                    msg1: '子组件拿到了一句父组件的话:',
+                };
+            },
+            template: `
+            
+        <h3>{{msg1 +'-------'+  myMsg }}</h3>
+        
+        `,
+        });
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: '最是人间留不住,朱颜辞镜花辞树',
+            },
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>

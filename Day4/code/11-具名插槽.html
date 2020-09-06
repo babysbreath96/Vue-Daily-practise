@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <slot-slot>
+            <!-- 1、 通过slot属性来指定, 这个slot的值必须和下面slot组件得name值对应上
+				如果没有匹配到 则放到匿名的插槽中   -->
+            <div slot="header">头部</div>
+            <div>主体</div>
+            <div>主体</div>
+            <div>主体</div>
+            <div slot="footer">底部</div>
+        </slot-slot>
+        <!-- v-slot : 指令 2.6.0 之后版本使用，取代slot 和slot-spoce 
+        只能放在组件或者template标签中
+        v-slot:插槽名 -->
+
+        <slot-slot>
+            <!--2 使用template标签(vueAPi) 添加slot属性，可以包裹多个标签，渲染内部所有标签 -->
+            <!-- 注意点：template临时的包裹标签最终不会渲染到页面上     -->
+            <template v-slot:header>
+          <div>头部1</div>
+          <div>头部2</div>
+        </template>
+            <template>
+          <div>主体信息1</div>
+          <div>主体信息2</div>
+          <div>主体信息3</div>
+        </template>
+            <template v-slot:footer>
+          <div>底部1</div>
+          <div>底部2</div>
+        </template>
+        </slot-slot>
+
+        <!--3 v-slot 简写 # -->
+        <slot-slot>
+            <template #header>
+          <div>头部1</div>
+        </template>
+            <template>
+          <div>主体信息1</div>
+        </template>
+            <template #footer>
+          <div>底部1</div>
+        </template>
+        </slot-slot>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        //1.TODO: 具名插槽的渲染顺序，完全取决于模板，而不是取决于父组件中元素的顺序
+        //2.TODO: v-slot : 指令 2.6.0 之后版本使用，取代slot 和slot-spoce 只能放在组件或者template标签中 v-slot:插槽名
+        //3.TODO: v-slot 简写 #
+        Vue.component('slot-slot', {
+            template: `
+
+                  <div>
+                        <div>
+                          <slot name="header"></slot>
+                        </div>
+                        <div>
+                          <slot></slot>
+                        </div>
+                        <div>
+                          <slot  name="footer"> 这里是默认值 </slot>
+                        </div>
+                  </div>
+             `,
+        });
+
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>

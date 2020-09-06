@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <btn-one></btn-one>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        //1.TODO: 组件就是实例 实例也是组件
+        Vue.component('btn-one', {
+            //2.TODO: data 一定是个函数，并且返回一个对象
+            //3.TODO: 组件的template必须有且只有一个根节点
+            //4.TODO: template可以使用模板字符串
+            data() {
+                return {
+                    msg: '徐启成在',
+                };
+            },
+            template: `
+            <button> {{msg}}  哈哈哈啊哈</h2>s
+            `,
+            methods: {},
+        });
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>

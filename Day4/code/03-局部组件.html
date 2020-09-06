@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <com-a></com-a> -->
+        <!-- <com-b></com-b> -->
+        <!-- <com-c></com-c> -->
+        <com-d></com-d>
+        <!-- <comD></comD> -->
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        const comC = {
+            template: `<h2>这是cc</h2>`,
+        };
+        const comD = {
+            template: `<h2>这是DD</h2>`,
+        };
+
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+            //1.TODO: 局部组件
+            components: {
+                'com-a': {
+                    template: `<h2>这是AAAAA</h2>`,
+                },
+                'com-b': {
+                    template: `<h2>BBBB</h2>`,
+                },
+                //2.TODO: 键：组件名  值 ：组件内容(对应上面对象的变量名)
+                // 'com-c': comC,
+                // 'com-d': comD,
+                comC, //
+                comD,
+                // 'com-c': {
+                //     template: `<h2>这是cc</h2>`,
+                // },
+                // 'com-d': {
+                //     template: `<h2>这是DDDD</h2>`,
+                // },
+            },
+        });
+    </script>
+</body>
+
+</html>

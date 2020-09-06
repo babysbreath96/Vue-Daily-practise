@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>{{pmsg}}</div>
+        <!-- 在props中使用驼峰命名法,在html中的字符不能使用驼峰命名,需要用短横线 -->
+        <client :son="ptitle"></client>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        //父组件向子组件传值命名规则
+
+        Vue.component('client', {
+            props: ['son'],
+            data: function() {
+                return {
+                    // hello: 'shadakhdk'
+                };
+            },
+            //在字符串模板中没有大小写限制
+            template: `
+              <div>
+                {{son +'----' + '儿子收到了'}}
+              <third-com :sun='son'></third-com>
+              
+              </div>`,
+        });
+
+        Vue.component('third-com', {
+            props: ['sun'],
+            template: `<div>{{sun  +'-----'+'孙子收到了'}}</div>`,
+            mounted() {
+                console.log(this.sun);
+            },
+        });
+
+        new Vue({
+            el: '#app',
+            data: {
+                pmsg: '开始了',
+                ptitle: '爷爷给你的爱',
+            },
+            methods: {},
+        });
+        // setup
+    </script>
+</body>
+
+</html>
