@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style type="text/css">
+        .container {}
+        
+        .container .cart {
+            width: 300px;
+            margin: auto;
+        }
+        
+        .container .title {
+            background-color: lightblue;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            /*color: #fff;*/
+        }
+        
+        .container .total {
+            background-color: #ffce46;
+            height: 50px;
+            line-height: 50px;
+            text-align: right;
+        }
+        
+        .container .total button {
+            margin: 0 10px;
+            background-color: #dc4c40;
+            height: 35px;
+            width: 80px;
+            border: 0;
+        }
+        
+        .container .total span {
+            color: red;
+            font-weight: bold;
+        }
+        
+        .container .item {
+            height: 55px;
+            line-height: 55px;
+            position: relative;
+            border-top: 1px solid #add8e6;
+        }
+        
+        .container .item img {
+            width: 45px;
+            height: 45px;
+            margin: 5px;
+        }
+        
+        .container .item .name {
+            position: absolute;
+            width: 90px;
+            top: 0;
+            left: 55px;
+            font-size: 16px;
+        }
+        
+        .container .item .change {
+            width: 100px;
+            position: absolute;
+            top: 0;
+            right: 50px;
+        }
+        
+        .container .item .change a {
+            font-size: 20px;
+            width: 30px;
+            text-decoration: none;
+            background-color: lightgray;
+            vertical-align: middle;
+        }
+        
+        .container .item .change .num {
+            width: 40px;
+            height: 25px;
+        }
+        
+        .container .item .del {
+            position: absolute;
+            top: 0;
+            right: 0px;
+            width: 40px;
+            text-align: center;
+            font-size: 40px;
+            cursor: pointer;
+            color: red;
+        }
+        
+        .container .item .del:hover {
+            background-color: orange;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <my-cart></my-cart>
+        </div>
+    </div>
+    <script type="text/javascript" src="../node_modules/vue/dist/vue.js"></script>
+    <script type="text/javascript">
+        //1.1.TODO: 接收来自父组件通过属性绑定传递的数据，动态渲染用户名到页面。
+        var CartTitle = {
+            props: ['uname'],
+            template: `
+        <div class="title">{{uname}}商品</div>
+      `,
+        };
+        //3.1.TODO: 接收来自父组件通过属性绑定传递的数据，动态渲染商品信息到页面。
+        //3.2.TODO: 数量不能用v-model双向数据绑定，会修改原数据，因此使用属性绑定
+        //3.3.TODO: 删除操作
+        //4.1.TODO: 添加操作
+        //5.1.TODO: 减少操作
+        var CartList = {
+            props: ['list'],
+            template: `
+        <div>
+          <div class="item" :key="item.id" v-for="item in list" >
+            <img :src="item.img"/>
+        <div class="name">{{item.name}}</div>
+            <div class="change">
+              <a href=""@click.prevent="subitem(item.id)" >－</a>
+              <input type="text" class="num" :value="item.num" @blur="changeitem(item.id,$event)" />
+              <a href="" @click.prevent="additem(item.id)">＋</a>
+            </div>
+            <div class="del" @click="delitem(item.id)">×</div>
+          </div>       
+        </div>
+      `,
+
+            methods: {
+                //3.4.TODO: 删除 将自定义事件 抽离到methods中
+                delitem(id) {
+                    this.$emit('del', id);
+                },
+                //4.2.TODO: 添加
+                additem(id) {
+                    this.$emit('add', {
+                        id: id,
+                        flag: 'add',
+                    });
+                },
+                //5.2.TODO: 减少
+                subitem(id) {
+                    this.$emit('sub', {
+                        id: id,
+                        flag: 'sub',
+                    });
+                },
+                //6.2.TODO: 修改   优化代码，修改数据只能输入数字型
+                changeitem(id, event) {
+                    if (!Number(event.target.value)) {
+                        return (event.target.value = 1);
+                    }
+
+                    this.$emit('change', {
+                        id: id,
+                        flag: 'change',
+                        val: event.target.value - 0,
+                    });
+                },
+            },
+        };
+        //2.1.TODO: 计算属性，计算总价，接收父组件通过属性绑定 传递过来的数据
+        var CartTotal = {
+            props: ['list'],
+            template: `
+        <div class="total">
+          <span>总价：{{total}}</span>
+          <button>结算</button>
+        </div>
+      `,
+
+            computed: {
+                total() {
+                    var sum = 0;
+                    this.list.forEach((item) => (sum += item.num * item.price));
+                    return sum;
+                },
+            },
+        };
+
+        //1.TODO: 定义用户名
+        Vue.component('my-cart', {
+            data() {
+                return {
+                    uname: '小小小',
+                    list: [{
+                        id: 1,
+                        name: 'TCL彩电',
+                        price: 1000,
+                        num: 1,
+                        img: 'img/a.jpg',
+                    }, {
+                        id: 2,
+                        name: '机顶盒',
+                        price: 1000,
+                        num: 1,
+                        img: 'img/b.jpg',
+                    }, {
+                        id: 3,
+                        name: '海尔冰箱',
+                        price: 1000,
+                        num: 1,
+                        img: 'img/c.jpg',
+                    }, {
+                        id: 4,
+                        name: '小米手机',
+                        price: 1000,
+                        num: 1,
+                        img: 'img/d.jpg',
+                    }, {
+                        id: 5,
+                        name: 'PPTV电视',
+                        price: 1000,
+                        num: 2,
+                        img: 'img/e.jpg',
+                    }, ],
+                };
+            },
+            template: `
+        <div class='cart'>
+          <cart-title :uname='uname' ></cart-title>
+          <cart-list :list='list' @del="delhandle($event)" @add="handle($event)" @sub="handle($event)"@change="handle($event)" ></cart-list>
+          <cart-total :list='list'></cart-total>
+        </div>
+      `,
+            components: {
+                'cart-title': CartTitle,
+                'cart-list': CartList,
+                'cart-total': CartTotal,
+            },
+
+            methods: {
+                //3.5.TODO: 删除操作
+                delhandle(id) {
+                    // 通过id找到对应的索引的值
+                    const index = this.list.findIndex((item) => item.id == id);
+                    this.list.splice(index, 1);
+                },
+                handle(obj) {
+                    // 通过id找到对应的索引的值
+                    const index = this.list.findIndex((item) => item.id == obj.id);
+                    console.log(index);
+                    //.TODO: 通过判断falg值 来执行对应业务逻辑是添加还是减少还是修改
+                    if (obj.flag == 'add') {
+                        this.list[index].num++;
+                    } else if (obj.flag == 'sub') {
+                        this.list[index].num == 1 ?
+                            this.delhandle(obj.id) :
+                            this.list[index].num--;
+                    } else if (obj.flag == 'change') {
+                        this.list[index].num = obj.val;
+                    }
+                },
+            },
+        });
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+        });
+    </script>
+</body>
+
+</html>

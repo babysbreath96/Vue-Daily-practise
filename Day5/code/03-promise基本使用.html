@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script>
+        //1.TODO: promise 只是一种异步编程规范，解决回调地狱的问题
+
+        //2.TODO: 在promise 中 ；两个参数是函数
+
+        // 实例化Promise对象，
+        const p = new Promise((resolve, reject) => {
+            console.dir(resolve);
+            console.dir(reject);
+
+            //书写异步代码
+            $.ajax({
+                url: 'http://localhost:3000/data',
+                success(data) {
+                    // 成功的响应函数
+                    //调用reslove函数
+                    resolve(data);
+                },
+                error(err) {
+                    //失败的响应函数
+                    //调用reject函数
+                    reject(err);
+                },
+            });
+        });
+        //.TODO:   p.then  成功的响应  p.catch 失败的响应
+        p.then((data) => {
+            console.log(data);
+        }).catch((err) => console.log(err));
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script>
+        //1.TODO: promise 是一种异步编程规范，用来解决回调地狱问题
+
+        // 实例化Promise对象 参数为两个函数resolve reject
+
+        const p = new Promise((resolve, reject) => {
+            console.dir(resolve);
+            console.dir(reject);
+
+            // 书写异步代码
+            $.ajax({
+                url: 'http://localhost:3000/data',
+                success(data) {
+                    // 响应成功调用resolve函数
+                    resolve(data);
+                },
+                error(err) {
+                    // 响应失败 调用reject函数
+                    reject(err);
+                },
+            });
+        });
+
+        //2.TODO: p.then  成功的响应 p.catch 失败的响应
+        // p.then(fn(){}),.then 内的函数接收来自resolve 传递过来的数据，
+        // 该函数同时返回一个promise对象，方便下一个.then 方法使用 (jq链式编程)
+        p.then((success) => {
+            console.log(success);
+        }).catch((err) => console.log(err));
+    </script>
+</body>
+
+</html>

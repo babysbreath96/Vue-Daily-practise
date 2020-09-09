@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script>
+        const p = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(' 我是定时器');
+            }, 3000);
+        });
+        const q = new Promise((resolve, reject) => {
+            $.ajax({
+                url: 'http://localhost:3000/data',
+                success(data) {
+                    resolve(data);
+                },
+                error(err) {
+                    reject(err);
+                },
+            });
+        });
+        // p.then((data) => {
+        //     console.log(data);
+        //     return q;
+        // }).then((res) => console.log(res));
+
+        q.then((data) => {
+            console.log(data);
+            return p;
+        }).then((res) => console.log(res));
+
+        //.TODO: 无事伴心弦,所念皆所愿
+    </script>
+</body>
+
+</html>

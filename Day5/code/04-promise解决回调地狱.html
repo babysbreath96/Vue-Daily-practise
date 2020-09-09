@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script>
+        //1.TODO:   promise 的封装
+        function reqest(url) {
+            return new Promise((resolve, reject) => {
+                //书写异步代码
+                $.ajax({
+                    url: url,
+                    success(data) {
+                        // 成功的响应函数
+                        //调用reslove函数
+                        resolve(data);
+                    },
+                    error(err) {
+                        //失败的响应函数
+                        //调用reject函数
+                        reject(err);
+                    },
+                });
+            });
+        }
+        //2.TODO:   p.then  成功的响应  p.catch 失败的响应
+        // world 的请求 promise对象
+        reqest('http://localhost:3000/data')
+            .then((res) => {
+                console.log(res); // world
+                // return reqest('http://localhost:3000/data1');
+            })
+            // 此处的.then 是上一个promise 对象调用的
+            .then((res) => {
+                console.log(res);
+                return reqest('http://localhost:3000/data2');
+            })
+            .then((res) => {
+                console.log(res);
+                //1.FIXME:  如果没有promise对象，自动创建一个promise对象，方便下一个。then使用
+                return 123;
+            })
+            .then((res) => {
+                console.log(res);
+            })
+            //3.TODO:  catch ：捕获异常 catch并不是某个promise对象的catch 谁出错catch捕获谁
+            .catch((err) => {
+                console.log(err);
+            })
+            //4.TODO: 不论响应成功还是失败都会执行 finally函数
+            .finally(() => {
+                console.log('响应都结束了');
+            });
+    </script>
+</body>
+
+</html>

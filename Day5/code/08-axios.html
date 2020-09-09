@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="../node_modules/axios/dist/axios.js"></script>
+    <script>
+        //1.TODO: axios  请求方式得到的是一个promise对象，可以直接.then；
+        // axios 响应的结果给我们做了额外包装处理，再.data一下 才可以拿到我们想要的数据
+        axios.get('http://localhost:3000/data').then((res) => {
+            console.log(res);
+            console.log(res.data);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //1.TODO: fetch API
+
+        //.TODO: 用fetch来获取数据，如果响应正常返回，我们首先看到的是一个response对象，其中包括返回的一堆原始字节，这些字节需要在收到后，
+        // 需要我们通过调用方法将其转换为相应格式的数据，比如`JSON`，`BLOB`或者`TEXT`等等
+
+        // fetch('http://localhost:3000/books/feiwu')
+        //     .then((res) => {
+        //         // console.log(res);//此处的res是响应的数据流，不是promise对象
+        //         //  res.text() 才是promise对象 它返回一个promise实例对象，用于获取后台返回的数据
+        //         // console.log(res.text());
+        //         // return res.text();
+        //     })
+        //     .then((res) => {
+        //         //.FIXME: 真正的响应的结果 jerry
+        //         console.log(res);
+        //     });
+        fetch('http://localhost:3000/json')
+            .then((res) => {
+                // console.log(res);//此处的res是响应的数据流，不是promise对象
+                //  res.text() 才是promise对象 它返回一个promise实例对象，用于获取后台返回的数据
+                // console.log(res.text());
+                // return res.text();
+                return res.json(); //json 返回的是一个json对象
+            })
+            .then((res) => {
+                //.FIXME: 真正的响应的结果 jerry
+                console.log(res);
+            });
+    </script>
+</body>
+
+</html>

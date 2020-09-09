@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script>
+        function request(url) {
+            return new Promise((resolve, reject) => {
+                console.dir(resolve);
+                console.dir(reject);
+                //书写异步代码
+                $.ajax({
+                    url: url,
+                    success(data) {
+                        // 成功的响应函数
+                        //调用reslove函数
+                        resolve(data);
+                    },
+                    error(err) {
+                        //失败的响应函数
+                        //调用reject函数
+                        reject(err);
+                    },
+                });
+            });
+        }
+        //1.TODO: 对象方法
+        //1.FIXME: Promise.all() 并发处理多个异步任务，所有任务都执行完成才能得到结果
+        //1.FIXME: Promise.race() 并发处理多个异步任务，只要有一个完成就能得到结果
+
+        //2.TODO: 将所有的响应拿到之后，返回结果放在数组中
+        Promise.all([
+            reqest('http://localhost:3000/data'),
+            reqest('http://localhost:3000/data1'),
+            reqest('http://localhost:3000/data2'),
+        ]).then((res) => {
+            console.log(res);
+        });
+        Promise.race([
+            reqest('http://localhost:3000/data'),
+            reqest('http://localhost:3000/data1'),
+            reqest('http://localhost:3000/data2'),
+        ]).then((res) => {
+            console.log(res);
+        });
+    </script>
+</body>
+
+</html>

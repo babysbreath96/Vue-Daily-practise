@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 3,定义需要变色的文字，和生成组件 -->
+        <p id="pp">文字</p>
+        <!-- 5 给自定义事件绑定处理函数，并接收子组件传递的值 必须使用$event接收 -->
+        <sweet-baby @color="handle($event)"></sweet-baby>
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script>
+        //1.TODO: 在这里定义自定义组件
+        Vue.component('sweet-baby', {
+            data() {
+                return {
+                    //4.TODO: 定义颜色的数据
+                    color: 'red',
+                };
+            },
+
+            // 2 , 根据需求定义模板，点击文字变色 需要一个点击按钮
+            // 4.1 接收color 参数, data 中return出的对象里的属性名
+            template: `
+        <div >
+         子组件：<button @click="$emit('color',color)">
+          点击
+          </button>
+        </div>
+        
+        `,
+        });
+
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {
+                //5.TODO:定义点击变色的处理函数 ，接收来自子组件的数据$event ==>传递给形参 e
+                handle: function(e) {
+                    // 5.1 原生方法操作dom,修改p的文字颜色为传递过来的 e.color值
+                    console.log(e);
+                    document.querySelector('#pp').style.color = e;
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>
