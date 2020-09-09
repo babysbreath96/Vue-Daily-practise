@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li :key="item.id" v-for="item in list">{{item.name}}</li>
+        </ul>
+        <button @click="add">新增</button>
+        <div></div>
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script src="../node_modules/axios/dist/axios.js"></script>
+    <script>
+        axios.defaults.baseURL = 'http://localhost:3000/';
+        //.TODO: 一般添加一个身份令牌  AUTH_TOKEN是一个后端服务器返回给我们的随机字符串
+        // axios.defaults.headers.common['Authorization'] = 'AUTH_TOKEN';
+
+        //1.TODO: 我们每次发送的请求或者响应都会被axios的拦截器所监听到
+
+        // 在axios请求成功，返回结果中，我们要的结果被包含在data的字段中，我们可以使用响应拦截器将数据抽出
+
+        //1.FIXME: 请求拦截器 发送请求之前会进入请求拦截器
+        axios.interceptors.request.use(
+            function(config) {
+                console.log('开始请求');
+                return config; // 必须return
+            }
+            // function(error) {
+            //     // Do something with request error
+            //     return Promise.reject(error);
+            // }
+        );
+        //2.FIXME: 响应拦截器 响应之前会进入响应拦截器
+        axios.interceptors.response.use(
+            function(response) {
+                console.log('开始响应');
+                // Do something with response data
+                //.TODO: 在响应拦截器中 将data 剥离
+                return response.data;
+            }
+            // function(error) {
+            //     return Promise.reject(error);
+            // }
+        );
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                list: [],
+            },
+            methods: {
+                add() {
+                    //3.TODO: 新增 post请求，name（id是自增的）
+                    axios
+                        .post('start', {
+                            name: '小曹',
+                        })
+                        .then((res) => {
+                            console.log(res);
+                        });
+                },
+            },
+            created() {
+                axios.get('start').then((res) => {
+                    console.log(res);
+                    this.list = res;
+                });
+            },
+        });
+    </script>
+</body>
+
+</html>

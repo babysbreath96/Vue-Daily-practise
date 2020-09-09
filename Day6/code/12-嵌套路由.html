@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <router-link to="/music">音乐</router-link>
+        <router-link to="/movie">电影</router-link>
+        <router-link to="/news">新闻</router-link>
+
+        <!-- 路由占位 -->
+        <router-view></router-view>
+    </div>
+    <!-- 1 ，引入 vue 和 vue-router  -->
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script src="../node_modules/vue-router/dist/vue-router.js"></script>
+    <script>
+        //2.TODO: 创建组件
+        const music = {
+            template: `
+        <div>音乐列表
+            <router-link to="/music/pop">流行音乐</router-link>
+            <router-link to="/music/yaogun">摇滚音乐</router-link>
+            <router-view></router-view>
+        </div>
+        `,
+        };
+        const movie = {
+            template: `
+        <div>电影列表</div>
+        `,
+        };
+        const news = {
+            template: `
+        <div>新闻列表
+           
+        </div>
+        `,
+        };
+        const pop = {
+            template: `
+        <div>晴天</div>
+        `,
+        };
+        const yaogun = {
+            template: `
+        <div>白日梦蓝</div>
+        `,
+        };
+
+        //3.TODO: 创建路由规则 数组
+        //4.TODO: 创建路由实例 并挂载路由规则
+        const router = new VueRouter({
+            routes: [
+                //1.FIXME: path 路径，表示的是路由的地址，component组件
+                {
+                    path: '/',
+                    // redirect: 'music'
+                }, //路由重定向 ,默认跳转redirect后的地址
+                {
+                    path: '/music',
+                    component: music,
+                    children: [{
+                        path: '/music/pop',
+                        component: pop
+                    }, {
+                        path: '/music/yaogun',
+                        component: yaogun
+                    }]
+                }, {
+                    path: '/movie',
+                    component: movie
+                }, {
+                    path: '/news',
+                    component: news
+                },
+            ]
+        });
+        //5.TODO: 将路由实例 挂载给vue实例
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+            router
+        });
+    </script>
+</body>
+
+</html>

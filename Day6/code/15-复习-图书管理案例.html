@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style type="text/css">
+        .grid {
+            margin: auto;
+            width: 530px;
+            text-align: center;
+        }
+        
+        .grid table {
+            border-top: 1px solid #c2d89a;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .grid th,
+        td {
+            padding: 10;
+            border: 1px dashed #f3dcab;
+            height: 35px;
+            line-height: 35px;
+        }
+        
+        .grid th {
+            background-color: #f3dcab;
+        }
+        
+        .grid .book {
+            padding-bottom: 10px;
+            padding-top: 5px;
+            background-color: #f3dcab;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="grid">
+            <div>
+                <h1>图书管理</h1>
+                <div class="book">
+                    <div>
+                        <label for="id">编号：</label>
+                        <input type="text" id="id" disabled v-model="id" />
+                        <label for="name">名称： </label>
+                        <input type="text" id="name" autocomplete="off" v-model.trim="name" v-focus />
+                        <button @click="handle" :disabled="isSubmit">提交</button>
+                    </div>
+                </div>
+            </div>
+            <div class="total">
+                <span>图书总数：</span>
+                <span> {{getsum()}} </span> 计算属性 ：{{getsum1}}
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>名称</th>
+                        <th>时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="item in books" :key="item.id">
+                        <td>{{item.id}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.date | format('yyyy-MM-dd hh:mm:ss') }}</td>
+                        <td>
+                            <a href="" @click.prevent="edit(item.id)">修改</a>
+                            <span>|</span>
+                            <a href="" @click.prevent="delList(item.id)">删除</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script src="../node_modules/axios/dist/axios.js"></script>
+    <script>
+        //.TODO: 设置基地址
+        axios.defaults.baseURL = 'http://localhost:3000/';
+        //.TODO: 设置响应拦截器
+        axios.interceptors.response.use(
+            function(response) {
+                // console.log('开始响应');
+                // Do something with response data
+                //.TODO: 在响应拦截器中 将data 剥离
+                return response.data;
+            },
+            function(error) {
+                return Promise.reject(error);
+            }
+        );
+        //5.TODO: 自定义表单获得焦点指令
+        Vue.directive('focus', {
+            inserted(el) {
+                el.focus();
+            },
+        });
+
+        //6.TODO: 时间过滤器
+        Vue.filter('format', function(value, arg) {
+            function dateFormat(date, format) {
+                if (typeof date === 'string') {
+                    var mts = date.match(/(\/Date\((\d+)\)\/)/);
+                    if (mts && mts.length >= 3) {
+                        date = parseInt(mts[2]);
+                    }
+                }
+                date = new Date(date);
+                if (!date || date.toUTCString() == 'Invalid Date') {
+                    return '';
+                }
+                var map = {
+                    M: date.getMonth() + 1, //月份
+                    d: date.getDate(), //日
+                    h: date.getHours(), //小时
+                    m: date.getMinutes(), //分
+                    s: date.getSeconds(), //秒
+                    q: Math.floor((date.getMonth() + 3) / 3), //季度
+                    S: date.getMilliseconds(), //毫秒
+                };
+                format = format.replace(/([yMdhmsqS])+/g, function(all, t) {
+                    var v = map[t];
+                    if (v !== undefined) {
+                        if (all.length > 1) {
+                            v = '0' + v;
+                            v = v.substr(v.length - 2);
+                        }
+                        return v;
+                    } else if (t === 'y') {
+                        return (date.getFullYear() + '').substr(4 - all.length);
+                    }
+                    return all;
+                });
+                return format;
+            }
+            return dateFormat(value, arg);
+        });
+        var vm = new Vue({
+            el: '#app',
+
+            data: {
+                name: '',
+                id: '',
+                flag: false,
+                isSubmit: false,
+                books: '',
+            },
+            //.TODO: 钩子函数中传入数据
+            // created: async function() {
+            //     // axios.get('books').then((res)=>{
+            //     //     console.log(res);
+            //     //     this.books=res
+            //     // })
+
+
+            //     this.books = await axios.get('books')
+            // }
+            created() {
+                this.getBooks()
+            },
+            methods: {
+                //.TODO: 单独封装获取图书方法   异步任务async
+                async getBooks() {
+                    this.books = await axios.get('books')
+                    console.log(await axios.get('books'));
+                },
+
+                //1.TODO: 提交操作
+                async handle() {
+                    //1.1FIXME: 非空校验
+                    if (!this.name) return alert('请输入图书名');
+                    //3.2.FIXME: 通过开关判定 提交按钮是做修改还是提交操作
+                    if (this.flag == false) {
+                        const res = await axios.post('books', {
+                            name: this.name
+                        })
+                        if (res.status == 200) {
+                            this.getBooks()
+                        }
+
+                    } else {
+                        //3.3.FIXME: 修改操作
+                        console.log(this.id);
+                        const res = await axios.put('books/' + this.id, {
+                            name: this.name
+                        })
+                        console.log(res);
+                        if (res.status == 200) {
+                            this.getBooks();
+                        };
+                        this.flag = false;
+                    }
+                    //1.3.FIXME: 清空表单
+                    this.id = this.name = '';
+                },
+                //2.TODO: 删除操作
+                async delList(id) {
+                    // console.log(id);
+                    const res = await axios.delete('books/' + id);
+                    if (res.status == 200) {
+                        this.getBooks();
+                    }
+                },
+                //3.TODO: 编辑操作
+                async edit(id) {
+                    //点击修改
+                    this.flag = true;
+                    //.FIXME: 根据id查询图书  是一个对象
+                    const res = await axios.get('books/' + id);
+                    this.id = res.id;
+                    this.name = res.name
+
+                },
+                //8.TODO: 计算总数方法
+                getsum() {
+                    return this.books.length;
+                },
+            },
+            //4.TODO:   如果用户拿到的name值和数据的name值一致禁用提交按钮
+            watch: {
+                async name(value) {
+                    const res = await axios.get('books/book/' + value);
+                    this.isSubmit = res.status == 1 ? true : false;
+                }
+            },
+            //9.TODO: 计算属性
+            computed: {
+                getsum1() {
+                    return this.books.length;
+                },
+            },
+
+
+        });
+    </script>
+</body>
+
+</html>

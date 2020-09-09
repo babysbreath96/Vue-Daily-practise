@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li :key="item.id" v-for="item in list">{{item.name}}</li>
+        </ul>
+        <div>
+            <!-- <button @click="del">删除</button> -->
+        </div>
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script src="../node_modules/axios/dist/axios.js"></script>
+    <script>
+        //1.TODO: async 和 await 是进一步简化异步操作的(本质就是为了简化.then)
+
+        axios.defaults.baseURL = 'http://localhost:3000/';
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                list: [],
+            },
+            methods: {},
+            //1.TODO: 函数前async关键字 async 放在函数前，将函数变为一个异步函数
+            //2.TODO: await 关键字只能放在async函数中
+            //3.TODO: async和await一般是同时出现的
+            created: async function() {
+                //.FIXME: Promise.then 可以拿到响应结果；axios.get('start')就是一个promise对象
+
+                // axios.get('start').then((res) => {
+                //     console.log(res);
+                //     this.list = res.data;
+                // });
+                //.FIXME: await后面是一个promis对象 ，解构
+                const {
+                    data: res
+                } = await axios.get('start');
+                console.log(res);
+            },
+        });
+    </script>
+</body>
+
+</html>

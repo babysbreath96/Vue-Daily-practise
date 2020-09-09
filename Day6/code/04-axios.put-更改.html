@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li :key="item.id" v-for="item in list">{{item.name}}</li>
+        </ul>
+        <div>
+            <button @click="del">删除</button>
+            <button @click="add">新增</button>
+            <button @click="edit">修改</button>
+        </div>
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script src="../node_modules/axios/dist/axios.js"></script>
+    <script>
+        // 1 , 安装json-server  npm i json-server -g
+        // 2 , 创建json文件
+        // 3 , json-server --watch db.json 开启服务器
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                list: [],
+            },
+            methods: {
+                del() {
+                    //2.TODO: 删除，根据id删除数据
+                    axios.delete('http://localhost:3000/start/3').then((res) => {
+                        //1.FIXME: 响应结果为空对象，则表示删除成功
+                        console.log(res.data);
+                    });
+                },
+                add() {
+                    //3.TODO: 新增 post请求，发送post请求的时候，需携带参数，name（id是自增的）
+                    axios
+                        .post('http://localhost:3000/start', {
+                            name: 'xiaocao',
+                        })
+                        .then((res) => {
+                            console.log(res.data);
+                        });
+                },
+                edit() {
+                    //4.TODO: 修改 put ; 将id为4的修改为lalala
+                    axios
+                        .put('http://localhost:3000/start/4', {
+                            name: 'lalala',
+                        })
+                        .then((res) => {
+                            console.log(res.data);
+                        });
+                },
+            },
+            created() {
+                //1.1TODO: 获取所有数据 get
+                // axios.get('http://localhost:3000/start').then((res) => {
+                //     // console.log(res.data);
+                //     this.list = res.data;
+                // });
+                //1.2.TODO: ,根据id查询信息
+                // axios.get('http://localhost:3000/start/3').then((res) => {
+                //     console.log(res.data);
+                //     // this.list = res.data;
+                // });
+            },
+        });
+    </script>
+</body>
+
+</html>

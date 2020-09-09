@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+    <head>
+        <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+                <meta http-equiv="X-UA-Compatible"  content="ie=edge">
+                    <title>Document</title>
+    </head>
+
+    <body>
+
+        <div id="app">
+            <ul>
+                <Li :key="item.id" v-for="item in starts">
+                    {{item.name}}
+                </Li>
+            </ul>
+            <button @click="add">添加</button>
+        </div>
+        <script src="../node_modules/axios/dist/axios.js"></script>
+        <script src="../node_modules/vue/dist/vue.js"></script>
+
+
+        <script>
+            //.TODO: 全局配置项、
+            // axios.defaults.baseURL="http://localhost:3000/";
+            axios.defaults.header.common["Asasdad"] = "Adadadaff";
+
+
+            new Vue({
+                el: "#app",
+                data: {
+                    starts: []
+                },
+                async created() {
+                    // const res = await axios.get('http://localhost:3000/start');
+                    // console.log(res);
+                    const {
+                        data: res
+                    } = await axios.get('http://localhost:3000/start');
+                    console.log(res);
+                    this.starts = res
+                },
+                methods: {
+                    async add() {
+                        const res = await axios.post('http://localhost:3000/start', {
+                            name: 'zz',
+                            age: 15
+                        });
+                        console.log(res);
+                    }
+                }
+            })
+        </script>
+    </body>
+
+    </html>
