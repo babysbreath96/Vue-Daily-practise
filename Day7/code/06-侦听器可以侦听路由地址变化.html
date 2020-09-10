@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <router-link to="/newsnewsnewsnewsnewsnewsnewsnewsnewsnews/90">新闻</router-link>
+        <!-- router-link 属性绑定的方式  name的值一定加引号  -->
+        <!-- <router-link :to="{name:'news',params: {id: '100'}}">新闻</router-link> -->
+        <router-link to="/music">音乐</router-link>
+        <router-view></router-view>
+    </div>
+    <script src='../node_modules/vue/dist/vue.js'></script>
+    <script src='../node_modules/vue-router/dist/vue-router.js'></script>
+    <script>
+        // 命名路由,有时,使用地址来回跳转,不太方便,更希望使用一个别名,来控制路由的跳转
+        const news = {
+            props: ['id'],
+            template: `<div>新闻 {{ $route.params.id}}</div>`,
+        };
+        const music = {
+            template: `<div>音乐</div>`,
+        };
+        // 路由对象和路由规则
+        const router = new VueRouter({
+            routes: [{
+                path: "/",
+                redirect: "/news"
+            }, {
+                path: "/newsnewsnewsnewsnewsnewsnewsnewsnewsnews/:id",
+                name: "newsaaa",
+                component: news,
+                props: true
+
+            }, {
+                path: "/music",
+                component: music
+            }, ],
+        });
+        new Vue({
+            el: "#app",
+            data: {},
+            methods: {},
+            router,
+            // 侦听器可以监听到路由地址的变化
+            watch: {
+                '$route' (val) {
+                    console.log(val.params);
+                }
+            },
+            // 计算属性侦听不到路由地址的变化
+            // computed:{
+            //     '$route'(val){
+            //        console.log(val);
+            //       return val
+            //    }
+            // }
+        });
+    </script>
+</body>
+
+</html>

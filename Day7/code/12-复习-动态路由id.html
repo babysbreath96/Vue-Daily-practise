@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 5 ,  -->
+        <router-link to="/music/100/qbc">音乐</router-link>
+        <router-link to="/movie/aaaaaaaaaaa">电影</router-link>
+        <router-link to="/news">新闻</router-link>
+
+        <!-- 占位 -->
+        <router-view></router-view>
+    </div>
+    <!-- 1 , 引入 vue,vue-router. -->
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script src="../node_modules/vue-router/dist/vue-router.js"></script>
+    <script>
+        //2.TODO: 创建组件
+        const music = {
+
+            //.FIXME: 获取到 参数 id
+            //.TODO: $route 当前路由信息，(地址栏)
+            template: `
+        <div>
+            <h2>音乐列表  id为: {{$route.params.id}} 参数: {{$route.params.abc}} </h2>
+            
+        </div>
+      `,
+        };
+        const movie = {
+            props: ['id'],
+            template: `
+        <div>
+            <h2>电影列表 {{id}} </h2>
+        </div>
+      `,
+        };
+        const news = {
+            template: `
+        <div>
+            <h2>新闻列表</h2>
+        </div>
+      `,
+        };
+        //3.TODO: 实例化路由 挂载路由规则
+        const router = new VueRouter({
+            routes: [{
+                //1.FIXME: 通过属性绑定的方式进行动态匹配参数
+                path: '/music/:id/:abc',
+                component: music,
+            }, {
+                path: '/movie/:id',
+                component: movie,
+                props: true,
+            }, {
+                path: '/news',
+                component: news,
+            }, ]
+        });
+
+
+
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+            //4.TODO: 将路由实例挂载到vue实例上
+            router,
+        });
+    </script>
+</body>
+
+</html>

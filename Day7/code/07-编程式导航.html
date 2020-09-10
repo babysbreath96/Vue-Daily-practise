@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 编程式导航 就是通过js的方式实现页面跳转 -->
+    <div id="app">
+        <!-- 声明式导航  只有点击a链接的传递的参数是9 -->
+        <router-link to="/news/999">新闻</router-link>
+        <router-link to="/music">音乐</router-link>
+        <router-view></router-view>
+    </div>
+    <!-- location.href 原生js的编程式导航 -->
+    <!-- <button onclick="location.href='http://www.baidu.com'">按钮</button> -->
+    <script src='../node_modules/vue/dist/vue.js'></script>
+    <script src='../node_modules/vue-router/dist/vue-router.js'></script>
+    <script>
+        const news = {
+            template: `<div><h2>新闻</h2> <button @click="go">跳转到音乐列表</button> </div>`,
+            methods: {
+                go() {
+                    // console.log(this.$router); // 路由实例
+                    //2.TODO:  go(数值) 正数前进  负数后退 
+                    // back()后退  go(-1) 
+                    this.$router.push('/music')
+                }
+            }
+        };
+        const music = {
+            //1.TODO:    通过编程式导航的方式跳转传递的是另一个值 $router.push() 
+            template: `<div> <h2>音乐</h2> <button @click="$router.push('/news/2')">跳转到新闻列表</button></div>`,
+        };
+        // 路由对象和路由规则
+        const router = new VueRouter({
+            routes: [{
+                path: "/",
+                redirect: "/news"
+            }, {
+                path: "/news/:id",
+                component: news,
+                name: 'news'
+            }, {
+                path: "/music",
+                component: music,
+                name: 'music'
+            }, ],
+        });
+        const vm = new Vue({
+            el: "#app",
+            data: {},
+            methods: {},
+            router,
+        });
+    </script>
+
+
+    <!-- <script>
+        function fn(a = 2) {
+            a = 3;
+            console.log(a);
+            console.log(arguments[0]);
+        }
+        fn(1)
+    </script> -->
+
+
+
+</body>
+
+</html>

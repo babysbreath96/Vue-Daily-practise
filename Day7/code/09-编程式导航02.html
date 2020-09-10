@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+    <head>
+        <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+                <meta http-equiv="X-UA-Compatible"  content="ie=edge">
+                    <title>Document</title>
+    </head>
+
+    <body>
+        <div id='app'>
+            <router-link to="/music">音乐</router-link>
+            <router-link to="/movie">电影</router-link>
+            <router-link to="/news">新闻</router-link>
+
+            <!-- 路由占位 -->
+            <router-view />
+        </div>
+        <script src='../node_modules/vue/dist/vue.js'></script>
+        <script src='../node_modules/vue-router/dist/vue-router.js'></script>
+        <script>
+            // 创建组件
+            const music = {
+                //$router.push('/movie/99')这里携带参数  路由规则内 需：id占位
+                template: `
+            <h3>
+              音乐列表、              
+                <div>
+                    <button @click="$router.push('/movie/99')">跳转到电影列表</button> 
+                </div>
+            </h3>
+            `
+
+            };
+            const movie = {
+                template: `
+            <h3>
+              电影列表
+               
+            </h3>            
+            `
+            };
+            const news = {
+                template: `
+            <h3>
+              新闻列表
+              <div>
+                    <button @click="$router.push('/music')">跳转到音乐列表</button> 
+                </div> 
+            </h3>            
+            `
+            };
+            // 路由实例，挂载路由规则
+            const router = new VueRouter({
+                routes: [{
+                    path: '/music',
+                    component: music,
+                }, {
+                    path: '/movie/:id',
+                    component: movie,
+                }, {
+                    path: '/news',
+                    component: news,
+                }, ]
+            });
+            // 路由实例挂载到vue实例
+            var vm = new Vue({
+                el: '#app',
+                data: {},
+                methods: {},
+                router,
+            });
+        </script>
+    </body>
+
+    </html>

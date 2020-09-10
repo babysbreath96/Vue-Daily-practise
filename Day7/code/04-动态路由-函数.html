@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+    <head>
+        <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+                <meta http-equiv="X-UA-Compatible"  content="ie=edge">
+                    <title>Document</title>
+    </head>
+
+    <body>
+        <div id='app'>
+            <router-link to="/music/999">音乐</router-link>
+            <router-link to="/movie">电影</router-link>
+            <router-link to="/news">新闻</router-link>
+
+            <!-- 路由占位 -->
+            <router-view />
+        </div>
+        <!-- 引入 -->
+        <script src='../node_modules/vue/dist/vue.js'></script>
+        <script src='../node_modules/vue-router/dist/vue-router.js'></script>
+        <script>
+            //.TODO:  动态路由匹配 ，将路由地址中的参数拿到  ,  $route 是当前路由地址的信息对象
+            //.TODO:  在路由规则中定义props为布尔值 props:true,在组件中通过props属性接收传递
+            //.TODO:  当props值为静态的时候 要用对象形式
+            //.TODO:  将静态值与基于路由(动态)的值 函数方式
+            // 创建组件
+            const music = {
+                props: ['id', 'name', 'data'],
+                template: `
+            <h3>
+              音乐列表 id为: {{id}}-----名称为：{{name}}---时间：{{data}}
+            </h3>            
+            `
+            };
+            const movie = {
+                template: `
+            <h3>
+              电影列表 
+            </h3>            
+            `
+            };
+            const news = {
+                template: `
+            <h3>
+              新闻列表
+            </h3>            
+            `
+            };
+            // 路由实例，挂载路由规则
+            const router = new VueRouter({
+                //1.TODO: 将静态值与基于路由(动态)的值 函数方式
+                routes: [{
+                    path: '/music/:id',
+                    component: music,
+                    props: (route) => {
+                        return {
+                            id: route.params.id,
+                            name: 'pop',
+                            data: '2020-9-10',
+                        }
+                    },
+                    // props:(route)=>({id: route.params.id, name: 'pop',data: '2020-9-10',})
+                }, {
+                    path: '/movie',
+                    component: movie,
+
+                }, {
+                    path: '/news',
+                    component: news,
+                }, ]
+            });
+
+            // 路由实例挂载到vue实例
+            var vm = new Vue({
+                el: '#app',
+                data: {
+
+                },
+                methods: {
+
+                },
+                // 路由实例挂载到vue实例 router
+                router,
+            });
+        </script>
+    </body>
+
+    </html>

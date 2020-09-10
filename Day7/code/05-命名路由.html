@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+    <head>
+        <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+                <meta http-equiv="X-UA-Compatible"  content="ie=edge">
+                    <title>Document</title>
+    </head>
+
+    <body>
+        <div id='app'>
+            <!-- 通过属性绑定的方式 将路由规则中定义的name 键值存入对象中 值必须加引号-->
+            <router-link :to="{name:'music'}">音乐</router-link>
+            <!-- 如果该路由后携带参数，则在对象中添加params 值为对象 -->
+            <router-link :to="{name:'movie',params:{id:100}}">电影</router-link>
+
+
+            <!-- 路由占位 -->
+            <router-view />
+        </div>
+        <!-- 引入 -->
+        <script src='../node_modules/vue/dist/vue.js'></script>
+        <script src='../node_modules/vue-router/dist/vue-router.js'></script>
+        <script>
+            //1.TODO: 命名路由 ：有时使用地址来回跳转，不太方便，更希望使用有个别名，控制路由的跳转 
+
+
+            // 创建组件
+            const music = {
+                template: `
+            <h3>
+              音乐列表 
+            </h3>            
+            `
+            };
+            const movie = {
+                props: ['id'],
+                template: `
+            <h3>
+              电影列表 
+              id : {{id}}
+            </h3>            
+            `
+            };
+            // 路由实例，挂载路由规则
+            const router = new VueRouter({
+                //a.FIXME: 如果参数过长可以在添加一个name 属性 来控制路由跳转
+                routes: [{
+                    path: '/music/asdadadadasdadasdadasdad',
+                    component: music,
+                    name: "music",
+                }, {
+                    path: '/movie/asdadadadasdadasdadas/:id',
+                    component: movie,
+                    name: 'movie',
+                    props: true,
+                }, ]
+            });
+
+            // 路由实例挂载到vue实例
+            var vm = new Vue({
+                el: '#app',
+                data: {},
+                methods: {},
+                // 路由实例挂载到vue实例 router
+                router,
+            });
+        </script>
+    </body>
+
+    </html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 5 ,  -->
+        <router-link to="/music/100">音乐</router-link>
+        <router-link to="/movie">电影</router-link>
+        <router-link to="/news">新闻</router-link>
+
+        <!-- 占位 -->
+        <router-view></router-view>
+    </div>
+    <!-- 1 , 引入 vue,vue-router. -->
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script src="../node_modules/vue-router/dist/vue-router.js"></script>
+    <script>
+        //2.TODO: 创建组件
+        const music = {
+            props: ['id'],
+            //.FIXME: 获取到 参数 id
+            template: `
+        <div>
+            <h2>音乐列表  id为: {{id}} </h2>
+            
+        </div>
+      `,
+        };
+        const movie = {
+            template: `
+        <div>
+            <h2>电影列表</h2>
+        </div>
+      `,
+        };
+        const news = {
+            props: ['name', 'age'],
+            template: `
+        <div>
+            <h2>新闻列表</h2>
+            <span> {{name}} </span>
+            <span> {{age}} </span>
+        </div>
+      `,
+        };
+        //3.TODO: 实例化路由 挂载路由规则
+        const router = new VueRouter({
+            routes: [{
+                //1.FIXME: 通过属性绑定的方式进行动态匹配参数
+                //2.FIXME: 给props 设置为true ，再组件中通过props属性接收动态绑定的属性传递过去的值
+                path: '/music/:id',
+                component: music,
+                props: true,
+            }, {
+                path: '/movie',
+                component: movie,
+            }, {
+                //3.FIXME: 将props 的值设置为对象形式，该形式传递的数据是静态的
+                path: '/news',
+                component: news,
+                props: {
+                    name: 'zs',
+                    age: 18
+                }
+            }, ]
+        });
+
+
+
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+            //4.TODO: 将路由实例挂载到vue实例上
+            router,
+        });
+    </script>
+</body>
+
+</html>
