@@ -66,19 +66,22 @@
             // routes
             //1.FIXME: 路由重定向 ： 如果打开的页面是空白，默认指定跳转摸个地址
             //2.FIXME: path 是路径 表示的是路由的地址
-            routes: [{
-                path: '/',
-                redirect: 'music'
-            }, {
-                path: '/music',
-                component: music
-            }, {
-                path: '/movie',
-                component: movie
-            }, {
-                path: '/news',
-                component: news
-            }, ]
+            routes: [
+                //     {
+                //     path: '/',
+                //     redirect: 'music'
+                // },
+                {
+                    path: '/music',
+                    component: music
+                }, {
+                    path: '/movie',
+                    component: movie
+                }, {
+                    path: '/news',
+                    component: news
+                },
+            ]
         })
         new Vue({
             el: '#app',

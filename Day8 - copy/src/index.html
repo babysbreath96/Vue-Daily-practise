@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link rel="shortcut icon" href="#" />
+
+    <!-- <script src="./index.js"></script> -->
+    <!-- 第一次打包路径 -->
+    <!-- <script src="../dist/main.js"></script> -->
+    <!-- 第二次打包路径 -->
+    <!-- <script src="../dist/bundle.js"></script> -->
+    <!-- webpack-dev-server 会自动将打包好的js文件放在项目根目录中，虚拟的看不见 -->
+    <script src="/bundle.js"></script>
+</head>
+
+<body>
+    <div id="inp">
+        <!-- webpack-dev-server --open --host 127.0.0.1 --port 8080 -->
+        <input type="text" placeholder="王国维">
+    </div>
+    <ul>
+        <li>最是人间留不住，朱颜辞镜花辞树1</li>
+        <li>最是人间留不住，朱颜辞镜花辞树2</li>
+        <li>最是人间留不住，朱颜辞镜花辞树3</li>
+        <li>最是人间留不住，朱颜辞镜花辞树4</li>
+        <li>最是人间留不住，朱颜辞镜花辞树5</li>
+        <li>最是人间留不住，朱颜辞镜花辞树6</li>
+
+    </ul>
+    <div id="box"></div>
+    <!-- 这里不能用相对路径 只能用绝对路径 -->
+    <!-- <img src="./images/Yoona.gif" alt=""> -->
+    <!-- <img src="/src/images/Yoona.gif" alt=""> -->
+    </div>
+    <div id="app">
+        <h3>这是将来vue控制的区域</h3>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,10 @@
+li {
+    list-style: none;
+}
+
+
+/* // 选择器不是所有浏览器都支持，样式写在这，就在相应module的规则里添加 */
+
+::placeholder {
+    background-color: #f00;
+}

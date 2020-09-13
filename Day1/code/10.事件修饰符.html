@@ -24,28 +24,28 @@
         <div>
             <!-- 阻止默认行为 -->
             <!-- .once  只解析一次 -->
-            <a href="http://www.baidu.com" @click.prevent.once="aHandler">百度一下</a>
-        </div>
+            <a href="http://www.baidu.com" @click.prevent.once="aHandler">百度一下</a
+        >
+      </div>
     </div>
     <script src="../node_modules/vue/dist/vue.js"></script>
     <script>
-        // 事件修饰符支持链式编程
-        var vm = new Vue({
-            el: "#app",
-            data: {},
-            methods: {
-                divHandler() {
-                    console.log('触发了div');
-                },
-                btnHandler() {
-                    console.log('触发了btn');
-                },
-                aHandler() {
-                    console.log('触发了a');
-                }
-            },
-        });
+      // 事件修饰符支持链式编程
+      var vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {
+          divHandler() {
+            console.log('触发了div');
+          },
+          btnHandler() {
+            console.log('触发了btn');
+          },
+          aHandler() {
+            console.log('触发了a');
+          },
+        },
+      });
     </script>
-</body>
-
+  </body>
 </html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>前端七期点名器</title>
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+</head>
+<style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    
+    body {
+        background: black;
+    }
+    
+    .box {
+        width: 1200px;
+        height: 680px;
+        border: 1px solid white;
+        margin: 0 auto;
+        position: relative;
+    }
+    
+    .box div {
+        width: 100px;
+        height: 40px;
+        background: orangered;
+        font-size: 30px;
+        line-height: 40px;
+        text-align: center;
+        color: white;
+        float: left;
+        margin: 20px;
+        cursor: pointer;
+    }
+    
+    p {
+        width: 200px;
+        height: 80px;
+        font-size: 50px;
+        line-height: 80px;
+        text-align: center;
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        margin-left: -100px;
+        color: white;
+        background: blueviolet;
+        cursor: pointer;
+    }
+    
+    .choose {
+        background: white;
+        color: blueviolet;
+    }
+</style>
+
+<body>
+    <div class="box">
+        <div>郭俊杰</div>
+        <div>李方</div>
+        <div>解健鑫</div>
+        <div>陆欢</div>
+        <div>杨世伟</div>
+        <div>刘磊</div>
+        <div>屈芳</div>
+        <div>吴金明</div>
+        <div>李成姚</div>
+        <div>殷双玲</div>
+        <div>程超</div>
+        <div>张竹强</div>
+        <div>方宏发</div>
+        <div>陆晓杰</div>
+        <div>叶明莲</div>
+        <div>林柳柳</div>
+        <div>鲁雪静</div>
+        <div>陈琪</div>
+        <div>蒋涛</div>
+        <div>盛文奇</div>
+        <div>邱家田</div>
+        <div>鲍丙杉</div>
+        <div>徐启成</div>
+        <div>韩阳阳</div>
+        <div>李璐瑶</div>
+        <div>刘梦</div>
+        <div>谷健</div>
+        <div>陶敏</div>
+        <div>李曼丽</div>
+        <div>周应侗</div>
+        <div>邓燕娟</div>
+        <div>刘豆</div>
+        <div>张浩</div>
+        <div>朱旭东</div>
+        <div>汪秀创</div>
+        <div>史孝义</div>
+        <div>张慧玉</div>
+        <div>刘霖霖</div>
+        <div>谭俊峰</div>
+        <div>储召东</div>
+        <div>汤康妹</div>
+        <div>李凤姣</div>
+        <div>程家庆</div>
+        <div>曹晗</div>
+        <div>姜晓丹</div>
+        <div>鲁文兵</div>
+        <div>丁紫明</div>
+        <div>阮红君</div>
+        <div>童林锌</div>
+        <div>刘鑫春</div>
+        <div>李杨扬</div>
+        <div>张琪</div>
+        <div id="aa">曹雪洁</div>
+        <div>祝业虎</div>
+        <div>张婧</div>
+        <p class="but">开始点名</p>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript">
+    $(function() {
+        var num = 0;
+        var j = 0;
+        $(document).on('selectstart', function() {
+            return false;
+        });
+        var timer,
+            n = 0;
+        $('.box p').on('click', function() {
+            if (j == 0) {
+                j = 1;
+                $('.but').html('点名中');
+                timer = setInterval(function() {
+                    n++;
+
+                    $('.box div').each(function(k, v) {
+                        $('.box div').eq(k).css({
+                            background: color(),
+                            color: color(),
+                        });
+                    });
+
+                    //console.log(n)
+                    if (n >= 20) {
+                        clearInterval(timer);
+                        j = 0;
+                        $('.but').html('开始点名');
+                        n = 0;
+                        $('.box div').css({
+                            background: 'orangered',
+                            color: 'white',
+                        });
+                        // $('.box div').eq(52).css({
+                        //     background: 'white',
+                        //     color: 'blueviolet',
+                        // });
+                        console.log(name());
+                        $('.box div').eq(name()).css({
+                            background: 'white',
+                            color: 'blueviolet',
+                        });
+                        // if (num == 0) {
+                        //     $('#aa').css({
+                        //         background: 'white',
+                        //         color: 'blueviolet',
+                        //     });
+
+                        //     num++;
+                        // }
+                        //  else {
+                        //     $('.box div').eq(name()).css({
+                        //         background: 'white',
+                        //         color: 'blueviolet',
+                        //     });
+                        // }
+                    }
+                }, 100);
+            }
+        });
+
+        /*随机索引号，需要改的就直接改数字，多少人就改成多少个*/
+        function name() {
+            var numa = Math.floor(Math.random() * 56);
+            if (numa == 22) {
+                name();
+            } else {
+                return numa;
+            }
+        }
+        /*随机的颜色封装函数*/
+        function color() {
+            var r = Math.floor(Math.random() * 256);
+            var g = Math.floor(Math.random() * 256);
+            var b = Math.floor(Math.random() * 256);
+            return 'rgb(' + r + ',' + g + ',' + b + ')';
+        }
+    });
+</script>
